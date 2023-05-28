@@ -1,0 +1,61 @@
+/* Google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poiret+One&display=swap');
+
+body {
+    font-family: "Poiret One", "Gill Sans", sans-serif;
+}
+
+h1,
+h2 {
+    font-family: Lobster, Times, serif;
+}
+
+/* any div where items need to be vertically centered */
+#content-wrapper, /* the entire page content */
+#game-wrapper, /* the game - all content except for the heading */
+.score-section, /* each score section - the score label (e.g. "correct") and score underneath */
+#results-wrapper /* the results div */ {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* HEADING */
+#heading {
+    display: flex;
+    justify-content: center;
+}
+
+#rolling-stone-logo {
+    width: 35vw;
+    align-self: center;
+}
+
+h1 {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 2.3em;
+}
+
+/* GAME WRAPPER */
+
+#game-wrapper {
+    width: 60%;
+}
+
+/* NUMBER OF QUESTIONS */
+
+.number-questions-content {
+    display: inline-block;
+}
+
+/* SCORE */
+
+#score-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.score-label {
+    font-family: Lobster, serif;
+}

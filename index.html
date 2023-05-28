@@ -12,98 +12,101 @@
 </head>
 
 <body>
-    <!-- heading div -->
-    <div>
-        <img src="assets/images/rolling-stone-logo.png" alt="Rolling Stone magazine logo">
-        <h1>The 500 Greatest Songs of All Time</h1>
-    </div>
+    <div id="content-wrapper">
 
-    <!-- game wrapper div -->
-    <div>
-        <!-- categories div -->
-        <div>
-            <p>What category(s) do you want to play?</p>
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
+        <!-- heading div -->
+        <div id="heading">
+            <img id="rolling-stone-logo" src="assets/images/rolling-stone-logo.png" alt="Rolling Stone magazine logo">
+            <h1>The 500 Greatest<br>Songs of All Time</h1>
         </div>
 
-        <!-- number of questions div -->
-        <div>
-            <p>How many question do you want?</p>
-            <select name="number-questions">
-                <option selected>10</option>
-                <option>20</option>
-                <option>30</option>
-                <option>40</option>
-                <option>50</option>
-                <option>60</option>
-                <option>70</option>
-                <option>80</option>
-                <option>90</option>
-                <option>100</option>
-                <option>500</option>
-            </select>
-        </div>
-
-        <!-- start game div -->
-        <div>
-            <button></button>
-        </div>
-
-        <!-- active game div -->
-        <div>
-            <!-- score div -->
+        <!-- game wrapper div -->
+        <div id="game-wrapper">
+            <!-- categories div -->
             <div>
-                <div>
-                    <div>Correct</div>
-                    <div id="correct-count">0</div>
+                <p>What category(s) do you want to play?</p>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+            </div>
+
+            <!-- number of questions div -->
+            <div>
+                <p class="number-questions-content">How many questions do you want?</p>
+                <select class="number-questions-content" name="number-questions">
+                    <option selected>10</option>
+                    <option>20</option>
+                    <option>30</option>
+                    <option>40</option>
+                    <option>50</option>
+                    <option>60</option>
+                    <option>70</option>
+                    <option>80</option>
+                    <option>90</option>
+                    <option>100</option>
+                    <option>500</option>
+                </select>
+            </div>
+
+            <!-- start game div -->
+            <div>
+                <button></button>
+            </div>
+
+            <!-- active game div -->
+            <div>
+                <!-- score div -->
+                <div id="score-wrapper">
+                    <div class="score-section">
+                        <div class="score-label">Correct</div>
+                        <div id="correct-count">0</div>
+                    </div>
+                    <div class="score-section">
+                        <div class="score-label">Answered</div>
+                        <div><span id="answered-count">0</span> / <span id="number-questions-display">10</span></div>
+                    </div>
+                    <div class="score-section">
+                        <div class="score-label">Incorrect</div>
+                        <div id="incorrect-count">0</div>
+                    </div>
                 </div>
+
+                <!-- quiz div -->
                 <div>
-                    <div>Answered</div>
-                    <div><span id="answered-count">0</span> / <span id="number-questions-display">10</span></div>
-                </div>
-                <div>
-                    <div>Incorrect</div>
-                    <div id="incorrect-count">0</div>
+                    <p id="quiz-question">A quiz question will go here (added by JavaScript)</p>
+                    <div>
+                        <button></button>
+                        <div id="quiz-option-one">A quiz answer option will go here (added by JavaScript)</div>
+                    </div>
+                    <div>
+                        <button></button>
+                        <div id="quiz-option-two">A quiz answer option will go here (added by JavaScript)</div>
+                    </div>
+                    <div>
+                        <button></button>
+                        <div id="quiz-option-three">A quiz answer option will go here (added by JavaScript)</div>
+                    </div>
+                    <div>
+                        <button></button>
+                        <div id="quiz-option-four">A quiz answer option will go here (added by JavaScript)</div>
+                    </div>
                 </div>
             </div>
 
-            <!-- quiz div -->
-            <div>
-                <p id="quiz-question">A quiz question will go here (added by JavaScript)</p>
-                <div>
-                    <button></button>
-                    <div id="quiz-option-one">A quiz answer option will go here (added by JavaScript)</div>
-                </div>
-                <div>
-                    <button></button>
-                    <div id="quiz-option-two">A quiz answer option will go here (added by JavaScript)</div>
-                </div>
-                <div>
-                    <button></button>
-                    <div id="quiz-option-three">A quiz answer option will go here (added by JavaScript)</div>
-                </div>
-                <div>
-                    <button></button>
-                    <div id="quiz-option-four">A quiz answer option will go here (added by JavaScript)</div>
-                </div>
+            <!-- results div -->
+            <div id="results-wrapper">
+                <h2>Rad!</h2>
+                <p>You got 
+                    <span id="result-score">
+                        <span id="total-correct"></span> / 
+                        <span id="number-questions-result"></span>
+                    </span>
+                    correct!
+                </p>
+                <button id="play-again">Play again</button>
             </div>
-        </div>
-
-        <!-- results div -->
-        <div>
-            <h2>Rad!</h2>
-            <p>You got 
-                <span id="result-score">
-                    <span id="total-correct"></span> / 
-                    <span id="number-questions-result"></span>
-                </span>
-                 correct!
-            </p>
-            <button id="play-again">Play again</button>
         </div>
     </div>
 
