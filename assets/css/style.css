@@ -1,7 +1,8 @@
 /* Google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poiret+One&display=swap');
 
-body {
+body,
+button {
     font-family: "Poiret One", "Gill Sans", sans-serif;
 }
 
@@ -13,6 +14,7 @@ h2 {
 /* any div where items need to be vertically centered */
 #content-wrapper, /* the entire page content */
 #game-wrapper, /* the game - all content except for the heading */
+#categories-wrapper, /* the categories div - question and category buttons */
 .score-section, /* each score section - the score label (e.g. "correct") and score underneath */
 #results-wrapper /* the results div */ {
     display: flex;
@@ -20,7 +22,23 @@ h2 {
     align-items: center;
 }
 
+/* BUTTONS */
+
+.control-button {
+    background-color: transparent;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid;
+    border-radius: 3px;
+}
+
+.control-button:hover {
+    background-color: rgb(238, 29, 37);
+    color: white;
+}
+
 /* HEADING */
+
 #heading {
     display: flex;
     justify-content: center;
@@ -58,4 +76,26 @@ h1 {
 
 .score-label {
     font-family: Lobster, serif;
+}
+
+/* QUIZ */
+
+#quiz-options-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.quiz-option {
+    display: flex;
+    align-items: center;
+}
+
+.quiz-button {
+    border: none;
+    background-color: transparent;
+}
+
+.vinyl-button-icon {
+    height: 50px;
 }

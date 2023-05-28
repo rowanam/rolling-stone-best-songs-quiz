@@ -23,13 +23,15 @@
         <!-- game wrapper div -->
         <div id="game-wrapper">
             <!-- categories div -->
-            <div>
+            <div id="categories-wrapper">
                 <p>What category(s) do you want to play?</p>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
+                <div>
+                    <button class="control-button">Artist</button>
+                    <button class="control-button">Year</button>
+                    <button class="control-button">Album</button>
+                    <button class="control-button">Rank Bracket</button>
+                </div>
+                <button class="control-button">All Categories Mixed</button>
             </div>
 
             <!-- number of questions div -->
@@ -52,7 +54,7 @@
 
             <!-- start game div -->
             <div>
-                <button></button>
+                <button class="control-button">Start quiz</button>
             </div>
 
             <!-- active game div -->
@@ -76,21 +78,35 @@
                 <!-- quiz div -->
                 <div>
                     <p id="quiz-question">A quiz question will go here (added by JavaScript)</p>
-                    <div>
-                        <button></button>
-                        <div id="quiz-option-one">A quiz answer option will go here (added by JavaScript)</div>
-                    </div>
-                    <div>
-                        <button></button>
-                        <div id="quiz-option-two">A quiz answer option will go here (added by JavaScript)</div>
-                    </div>
-                    <div>
-                        <button></button>
-                        <div id="quiz-option-three">A quiz answer option will go here (added by JavaScript)</div>
-                    </div>
-                    <div>
-                        <button></button>
-                        <div id="quiz-option-four">A quiz answer option will go here (added by JavaScript)</div>
+                    <div id="quiz-options-wrapper">
+                        <div class="quiz-option">
+                            <button class="quiz-button">
+                                <img class="vinyl-button-icon" src="assets/images/vinyl-icon.png"
+                                    alt="Image of a vinyl record">
+                            </button>
+                            <div id="quiz-option-one">A quiz answer option will go here (added by JavaScript)</div>
+                        </div>
+                        <div class="quiz-option">
+                            <button class="quiz-button">
+                                <img class="vinyl-button-icon" src="assets/images/vinyl-icon.png"
+                                    alt="Image of a vinyl record">
+                            </button>
+                            <div id="quiz-option-two">A quiz answer option will go here (added by JavaScript)</div>
+                        </div>
+                        <div class="quiz-option">
+                            <button class="quiz-button">
+                                <img class="vinyl-button-icon" src="assets/images/vinyl-icon.png"
+                                    alt="Image of a vinyl record">
+                            </button>
+                            <div id="quiz-option-three">A quiz answer option will go here (added by JavaScript)</div>
+                        </div>
+                        <div class="quiz-option">
+                            <button class="quiz-button">
+                                <img class="vinyl-button-icon" src="assets/images/vinyl-icon.png"
+                                    alt="Image of a vinyl record">
+                            </button>
+                            <div id="quiz-option-four">A quiz answer option will go here (added by JavaScript)</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -98,14 +114,14 @@
             <!-- results div -->
             <div id="results-wrapper">
                 <h2>Rad!</h2>
-                <p>You got 
+                <p>You got
                     <span id="result-score">
-                        <span id="total-correct"></span> / 
+                        <span id="total-correct"></span> /
                         <span id="number-questions-result"></span>
                     </span>
                     correct!
                 </p>
-                <button id="play-again">Play again</button>
+                <button id="play-again" class="control-button">Play again</button>
             </div>
         </div>
     </div>
