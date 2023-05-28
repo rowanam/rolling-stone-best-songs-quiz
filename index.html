@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Songs Quiz</title>
+</head>
+
+<body>
+    <!-- heading div -->
+    <div>
+        <div>The Rolling Stone magazine icon will go here</div>
+        <h1>The 500 Greatest Songs of All Time</h1>
+    </div>
+
+    <!-- game wrapper div -->
+    <div>
+        <!-- categories div -->
+        <div>
+            <p>What category(s) do you want to play?</p>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+        </div>
+
+        <!-- number of questions div -->
+        <div>
+            <p>How many question do you want?</p>
+            <select name="number-questions">
+                <option selected>10</option>
+                <option>20</option>
+                <option>30</option>
+                <option>40</option>
+                <option>50</option>
+                <option>60</option>
+                <option>70</option>
+                <option>80</option>
+                <option>90</option>
+                <option>100</option>
+                <option>500</option>
+            </select>
+        </div>
+
+        <!-- start game div -->
+        <div>
+            <button></button>
+        </div>
+
+        <!-- active game div -->
+        <div>
+            <!-- score div -->
+            <div>
+                <div>
+                    <div>Correct</div>
+                    <div id="correct-count">0</div>
+                </div>
+                <div>
+                    <div>Answered</div>
+                    <div><span id="answered-count">0</span> / <span id="number-questions-display">10</span></div>
+                </div>
+                <div>
+                    <div>Incorrect</div>
+                    <div id="incorrect-count">0</div>
+                </div>
+            </div>
+
+            <!-- quiz div -->
+            <div>
+                <p id="quiz-question">A quiz question will go here (added by JavaScript)</p>
+                <div>
+                    <button></button>
+                    <div id="quiz-option-one">A quiz answer option will go here (added by JavaScript)</div>
+                </div>
+                <div>
+                    <button></button>
+                    <div id="quiz-option-two">A quiz answer option will go here (added by JavaScript)</div>
+                </div>
+                <div>
+                    <button></button>
+                    <div id="quiz-option-three">A quiz answer option will go here (added by JavaScript)</div>
+                </div>
+                <div>
+                    <button></button>
+                    <div id="quiz-option-four">A quiz answer option will go here (added by JavaScript)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- results div -->
+        <div>
+            <h2>Rad!</h2>
+            <p>You got 
+                <span id="result-score">
+                    <span id="total-correct"></span> / 
+                    <span id="number-questions-result"></span>
+                </span>
+                 correct!
+            </p>
+            <button id="play-again">Play again</button>
+        </div>
+    </div>
+</body>
+
+</html>
