@@ -51,3 +51,39 @@ function pullNumberOfQuestions() {
         return 10;
     }
 }
+
+/**
+ * This function will generate indices for the correct and incorrect answers for each question.
+ * The correct answers (number determined by the option selected by the user) won't repeat, and each question will
+ * have 3 more incorrect answers that don't repeat
+ */
+function generateQuestionIndices() {
+    // create a variable that stores how many questions should be generated
+    let numberOfQuestions = pullNumberOfQuestions();
+
+    /**
+     * Takes an array as an argument and generates a random number between 0 and 500.
+     * If that number is not already in the passed array, adds it to the array; if 
+     * the number is already there, generates a new one
+    */
+    function addNewRandomIndex(array) {
+        // generate a random number between 0 (inclusive) and 500 (exclusive) - 500 being the number of songs
+        // on the list to be randomly pulled from
+        let randomIndex = Math.floor(Math.random() * 500);
+
+        // check if number already in array; if so, generate a new number until one has been found that isn't in the array, if not, add number to array
+        if (array.includes(randomIndex)) {
+            addNewRandomIndex(array);
+        } else {
+            array.push(randomIndex);
+        }
+    }
+
+    // create an empty array that will hold the randomly generated list of indices of the correct answers
+    let correctIndices = [];
+    
+    // add random numbers to the array until the array has enough correct answers for the user-defined number of questions
+    while (correctIndices.length < numberOfQuestions) {
+        addNewRandomIndex(correctIndices);
+    }
+}
