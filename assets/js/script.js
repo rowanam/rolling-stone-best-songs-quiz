@@ -79,11 +79,51 @@ function generateQuestionIndices() {
         }
     }
 
+    /**
+     * Takes an array and a number as an argument and generates a random number between 0 and 500.
+     * If that number is not already in the passed array, and also not the same as the num, adds it to the array; 
+     * if the number is the same as num or already in the array, generates a new one
+    */
+    function addNewRandomIndexNotX(array, num) {
+        // generate a random number between 0 (inclusive) and 500 (exclusive) - 500 being the number of songs
+        // on the list to be randomly pulled from
+        let randomIndex = Math.floor(Math.random() * 500);
+
+        // check if generated index already in array or equal to num
+        // if so, generate a new index until one has been found that isn't in the array, if not, add index to array
+        if (array.includes(randomIndex) || randomIndex === num) {
+            addNewRandomIndex(array, num);
+        } else {
+            array.push(randomIndex);
+        }
+    }
+
+
+    // GENERATE CORRECT ANSWER INDICES
+
     // create an empty array that will hold the randomly generated list of indices of the correct answers
     let correctIndices = [];
     
     // add random numbers to the array until the array has enough correct answers for the user-defined number of questions
     while (correctIndices.length < numberOfQuestions) {
         addNewRandomIndex(correctIndices);
+    }
+
+
+    // GENERATE INCORRECT ANSWER INDICES
+
+    // create an empty array to hold the indices for the incorrect answers
+    let incorrectIndices = [];
+
+    // for each question, create an array of 3 random incides
+    for (let i = 0; i < numberOfQuestions; i++) {
+        // create an empty array for each question
+        let newIndicesArray = [];
+
+        for (let j = 0; j < 3; j++) {
+            addNewRandomIndexNotX(newIndicesArray, correctIndices[i]);
+        }
+
+        incorrectIndices.push(newIndicesArray);
     }
 }
