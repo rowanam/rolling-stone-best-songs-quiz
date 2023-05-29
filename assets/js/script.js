@@ -33,3 +33,21 @@ function categoryButtonChosen() {
 for (let button of categoryButtons) {
     button.addEventListener("click", categoryButtonChosen);
 }
+
+/**
+ * This function will check which option in the selection box next to "How many questions do you want?" is chosen
+ * and return that value.
+ * Currently only works when option "10" is chosen.
+ * @returns the desired number of questions to be answered
+ */
+function pullNumberOfQuestions() {
+    // create an HTMLCollection of the options for the "how many questions" question
+    let numberOptions = document.getElementsByTagName("option");
+
+    // set a variable containing the value of the "data-chosen" attribute 
+    let tenQsOptionIsChosen = numberOptions[0].getAttribute("data-chosen");
+    // if "data-chosen" is "true", function returns 10
+    if (tenQsOptionIsChosen === "true") {
+        return 10;
+    }
+}
