@@ -53,9 +53,10 @@ function pullNumberOfQuestions() {
 }
 
 /**
- * This function will generate indices for the correct and incorrect answers for each question.
- * The correct answers (number determined by the option selected by the user) won't repeat, and each question will
- * have 3 more incorrect answers that don't repeat
+ * Generate indices for the correct and incorrect answers for each question.
+ * The correct answers (number of answers determined by the option selected by the user) don't repeat, 
+ * and each question will have 3 more incorrect answers that don't repeat
+ * @returns an array containing the answerIndices array and the correctIndices array
  */
 function generateQuestionIndices() {
     // create a variable that stores how many questions should be generated
@@ -126,4 +127,30 @@ function generateQuestionIndices() {
 
         incorrectIndices.push(newIndicesArray);
     }
+
+
+    // GENERATE FULL ANSWER INDEX ARRAYS
+
+    // create an empty array to hold all answer indices
+    let answerIndices = [];
+
+    // randomly splice the correct anwer indices into an incorrect answer array, then add the new array to answerIndices
+    for (let i = 0; i < numberOfQuestions; i++) {
+        // create an array that contains the incorrect answers for a question
+        let newAnswerIndices = incorrectIndices[i];
+
+        // generate a random position in the newAnswerIndices array
+        let position = Math.floor(Math.random() * 4);
+
+        // add the correct answer index to the newAnswerIndices array at the random position
+        newAnswerIndices.splice(position, 0, correctIndices[i]);
+
+        // add the complete newAnswerIndices array to answerIndices
+        answerIndices.push(newAnswerIndices);
+    }
+
+
+    let output = [answerIndices, correctIndices];
+
+    return output;
 }
