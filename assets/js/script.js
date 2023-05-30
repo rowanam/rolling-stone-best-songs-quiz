@@ -187,8 +187,20 @@ function getQuizHTMLElements() {
     return questionAndOptionElements;
 }
 
+/**
+ * Runs the easy version of the quiz
+ */
 function runEasyGame() {
-    console.log("Running easy game");
+    // get an array with the HTML elements to be changed. first is the quiz question element, then the four quiz option elements
+    let quizElements = getQuizHTMLElements();
+
+    // get the indices for all of the quiz answers
+    // an array containing two arrays: the answer indices and the correct answer indices
+    let questionIndices = generateQuestionIndices();
+
+    // get the first answer option for the first question and display it in quiz on page
+    let answerA = songsData[questionIndices[0][0][0]].artistName; // pull the artist name from the songsData
+    quizElements[1].innerHTML = answerA; // change first option HTML element to contain artist name
 }
 
 function runMediumGame() {
