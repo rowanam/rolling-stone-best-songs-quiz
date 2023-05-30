@@ -14,7 +14,7 @@ h2 {
 /* any div where items need to be vertically centered */
 #content-wrapper, /* the entire page content */
 #game-wrapper, /* the game - all content except for the heading */
-#categories-wrapper, /* the categories div - question and category buttons */
+#mode-wrapper, /* the game mode div - question and game mode buttons */
 .score-section, /* each score section - the score label (e.g. "correct") and score underneath */
 #results-wrapper /* the results div */ {
     display: flex;
