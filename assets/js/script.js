@@ -190,33 +190,57 @@ function getQuizHTMLElements() {
     return questionAndOptionElements;
 }
 
-function nextQuestion(questionIndex) {
-    questionIndex++;
-}
-
 /**
  * Runs the easy version of the quiz
  */
-function runEasyGame(questionIndex) {
+function runEasyGame(startingQuestionIndex) {
+    let currentQuestionIndex = startingQuestionIndex;
+
     // get an array with the HTML elements to be changed. first is the quiz question element, then the four quiz option elements
     let quizElements = getQuizHTMLElements();
 
     // get the indices for all of the quiz answers
     // an array containing two arrays: the answer indices and the correct answer indices
     let questionIndices = generateQuestionIndices();
-    
-    // get four answer options and add each to an HTML option element
-    for (let i = 0; i < 4; i++) {
-        // create a variable to store the artist name at the randomly generated song index
-        // array indices guide: first index - the answerIndices array in questionIndices
-        // second index - the question number, i.e. the index of a an array in answerIndices (which contains four answer options)
-        // third index - the option number, i.e. indices 0-3 in each options array
-        let newOption = songsData[questionIndices[0][questionIndex][i]].artistName;
 
-        // add the artist name to the HTML
-        // i + 1 because the option elements start at index 1 in the quizElements array - index 0 is the question element
-        quizElements[i + 1].innerHTML = newOption;
+    /**
+     * This function currently gets four answer options for a quiz question, by pulling 
+     * data from the objects in songsData at the randomly generated indices,
+     * then adding these options to the quiz
+     */
+    function generateQuestion(questionIndex) {
+        // get four answer options and add each to an HTML option element
+        for (let i = 0; i < 4; i++) {
+            // create a variable to store the artist name at the randomly generated song index
+            // array indices guide: first index - the answerIndices array in questionIndices
+            // second index - the question number, i.e. the index of a an array in answerIndices (which contains four answer options)
+            // third index - the option number, i.e. indices 0-3 in each options array
+            let newOption = songsData[questionIndices[0][questionIndex][i]].artistName;
+
+            // add the artist name to the HTML
+            // i + 1 because the option elements start at index 1 in the quizElements array - index 0 is the question element
+            quizElements[i + 1].innerHTML = newOption;
+        }
     }
+
+    // get and display the first question options
+    generateQuestion(currentQuestionIndex);
+
+    /**
+     * Runs the next question in the game. Increments the current question number, checks that 
+     * it is less than 15. If so, runs the next question, if not, finishes the game
+     */
+    function runNextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < 15) {
+            generateQuestion(currentQuestionIndex);
+        } else {
+            finishGame();
+        }
+    }
+
+    let nextQuestionButton = document.getElementById("next-question-button");
+    nextQuestionButton.addEventListener("click", runNextQuestion);
 }
 
 function runMediumGame() {
@@ -225,4 +249,8 @@ function runMediumGame() {
 
 function runChallengingGame() {
     console.log("Running challenging game");
+}
+
+function finishGame() {
+    console.log("Game finished");
 }
