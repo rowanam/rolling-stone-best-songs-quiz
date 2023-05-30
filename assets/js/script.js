@@ -42,32 +42,14 @@ for (let button of modeButtons) {
 }
 
 /**
- * This function will check which option in the selection box next to "How many questions do you want?" is chosen
- * and return that value.
- * Currently only works when option "10" is chosen.
- * @returns the desired number of questions to be answered
- */
-function pullNumberOfQuestions() {
-    // create an HTMLCollection of the options for the "how many questions" question
-    let numberOptions = document.getElementsByTagName("option");
-
-    // set a variable containing the value of the "data-chosen" attribute 
-    let tenQsOptionIsChosen = numberOptions[0].getAttribute("data-chosen");
-    // if "data-chosen" is "true", function returns 10
-    if (tenQsOptionIsChosen === "true") {
-        return 10;
-    }
-}
-
-/**
  * Generate indices for the correct and incorrect answers for each question.
- * The correct answers (number of answers determined by the option selected by the user) don't repeat, 
+ * The correct answers don't repeat, 
  * and each question will have 3 more incorrect answers that don't repeat
  * @returns an array containing the answerIndices array and the correctIndices array
  */
 function generateQuestionIndices() {
-    // create a variable that stores how many questions should be generated
-    let numberOfQuestions = pullNumberOfQuestions();
+    // each quiz round has 15 questions
+    let numberOfQuestions = 15;
 
     /**
      * Takes an array as an argument and generates a random number between 0 and 500.
