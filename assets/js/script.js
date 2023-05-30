@@ -143,3 +143,17 @@ function generateQuestionIndices() {
 
     return output;
 }
+
+/**
+ * This function will start the game. The function for the relevant game will be called based on which game mode
+ * button was chosen, i.e. which game mode button has a "data-chosen" attribute of "true".
+ */
+function runGame() {
+    let easyModeChosen = document.getElementById("easy-mode-button").getAttribute("data-chosen");
+    let mediumModeChosen = document.getElementById("medium-mode-button").getAttribute("data-chosen");
+    let challengingModeChosen = document.getElementById("challenging-mode-button").getAttribute("data-chosen");
+}
+
+// add an event listener for the "click" event to the start quiz button, and carry out runGame when fired
+let startQuizButton = document.getElementById("start-quiz-button");
+startQuizButton.addEventListener("click", runGame);
