@@ -71,7 +71,7 @@ h1 {
 
 #score-wrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .score-label {

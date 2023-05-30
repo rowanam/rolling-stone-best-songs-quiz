@@ -32,7 +32,6 @@ function categoryButtonChosen() {
         } else {
             button.style.color = "";
             button.style.backgroundColor = "";
-            console.log("Other buttons chosen:", button.getAttribute("data-chosen"));
         }
     }
 }
