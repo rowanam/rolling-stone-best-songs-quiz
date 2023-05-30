@@ -152,8 +152,30 @@ function runGame() {
     let easyModeChosen = document.getElementById("easy-mode-button").getAttribute("data-chosen");
     let mediumModeChosen = document.getElementById("medium-mode-button").getAttribute("data-chosen");
     let challengingModeChosen = document.getElementById("challenging-mode-button").getAttribute("data-chosen");
+
+    if (easyModeChosen === "false" && mediumModeChosen === "false" && challengingModeChosen === "false") {
+        alert("Whoops! Choose a game mode to begin.");
+    } else if (easyModeChosen === "true") {
+        runEasyGame();
+    } else if (mediumModeChosen === "true") {
+        runMediumGame();
+    } else if (challengingModeChosen === "true") {
+        runChallengingGame();
+    }
 }
 
 // add an event listener for the "click" event to the start quiz button, and carry out runGame when fired
 let startQuizButton = document.getElementById("start-quiz-button");
 startQuizButton.addEventListener("click", runGame);
+
+function runEasyGame() {
+    console.log("Running easy game");
+}
+
+function runMediumGame() {
+    console.log("Running medium game");
+}
+
+function runChallengingGame() {
+    console.log("Running challenging game");
+}
