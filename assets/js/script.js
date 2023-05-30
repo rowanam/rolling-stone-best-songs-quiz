@@ -1,3 +1,11 @@
+// load json file song data
+var songsData;
+fetch('./assets/data/songs.json')
+    .then(res => res.json())
+    .then((data) => {
+        songsData = data;
+}).catch(err => console.error(err));
+
 // CODE TO SELECT AND HIGHLIGHT A GAME CATEGORY
 // create an HTMLCollection of the category buttons
 let categoryButtons = document.getElementsByClassName("category-button");
