@@ -197,10 +197,16 @@ function runEasyGame() {
     // get the indices for all of the quiz answers
     // an array containing two arrays: the answer indices and the correct answer indices
     let questionIndices = generateQuestionIndices();
+    
+    // get four answer options and add each to an HTML option element
+    for (let i = 0; i < 4; i++) {
+        // create a variable to store the artist name at the randomly generated song index
+        let newOption = songsData[questionIndices[0][0][i]].artistName;
 
-    // get the first answer option for the first question and display it in quiz on page
-    let answerA = songsData[questionIndices[0][0][0]].artistName; // pull the artist name from the songsData
-    quizElements[1].innerHTML = answerA; // change first option HTML element to contain artist name
+        // add the artist name to the HTML
+        // i + 1 because the option elements start at index 1 in the quizElements array - index 0 is the question element
+        quizElements[i + 1].innerHTML = newOption;
+    }
 }
 
 function runMediumGame() {
