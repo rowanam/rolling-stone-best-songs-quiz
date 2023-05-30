@@ -154,15 +154,18 @@ function runGame() {
     let mediumModeChosen = document.getElementById("medium-mode-button").getAttribute("data-chosen");
     let challengingModeChosen = document.getElementById("challenging-mode-button").getAttribute("data-chosen");
 
+    // declare a variable to store the starting index value for the question counter
+    let startingQuestionIndex = 0;
+
     // check which game mode was selected. if none, alert the user; if one chosen, run that game
     if (easyModeChosen === "false" && mediumModeChosen === "false" && challengingModeChosen === "false") {
         alert("Whoops! Choose a game mode to begin.");
     } else if (easyModeChosen === "true") {
-        runEasyGame();
+        runEasyGame(startingQuestionIndex);
     } else if (mediumModeChosen === "true") {
-        runMediumGame();
+        runMediumGame(startingQuestionIndex);
     } else if (challengingModeChosen === "true") {
-        runChallengingGame();
+        runChallengingGame(startingQuestionIndex);
     }
 }
 
@@ -187,10 +190,14 @@ function getQuizHTMLElements() {
     return questionAndOptionElements;
 }
 
+function nextQuestion(questionIndex) {
+    questionIndex++;
+}
+
 /**
  * Runs the easy version of the quiz
  */
-function runEasyGame() {
+function runEasyGame(questionIndex) {
     // get an array with the HTML elements to be changed. first is the quiz question element, then the four quiz option elements
     let quizElements = getQuizHTMLElements();
 
@@ -201,7 +208,10 @@ function runEasyGame() {
     // get four answer options and add each to an HTML option element
     for (let i = 0; i < 4; i++) {
         // create a variable to store the artist name at the randomly generated song index
-        let newOption = songsData[questionIndices[0][0][i]].artistName;
+        // array indices guide: first index - the answerIndices array in questionIndices
+        // second index - the question number, i.e. the index of a an array in answerIndices (which contains four answer options)
+        // third index - the option number, i.e. indices 0-3 in each options array
+        let newOption = songsData[questionIndices[0][questionIndex][i]].artistName;
 
         // add the artist name to the HTML
         // i + 1 because the option elements start at index 1 in the quizElements array - index 0 is the question element
