@@ -149,10 +149,12 @@ function generateQuestionIndices() {
  * button was chosen, i.e. which game mode button has a "data-chosen" attribute of "true".
  */
 function runGame() {
+    // declare variables to store the values of the "data-chosen" attributes on the game mode buttons 
     let easyModeChosen = document.getElementById("easy-mode-button").getAttribute("data-chosen");
     let mediumModeChosen = document.getElementById("medium-mode-button").getAttribute("data-chosen");
     let challengingModeChosen = document.getElementById("challenging-mode-button").getAttribute("data-chosen");
 
+    // check which game mode was selected. if none, alert the user; if one chosen, run that game
     if (easyModeChosen === "false" && mediumModeChosen === "false" && challengingModeChosen === "false") {
         alert("Whoops! Choose a game mode to begin.");
     } else if (easyModeChosen === "true") {
@@ -167,6 +169,23 @@ function runGame() {
 // add an event listener for the "click" event to the start quiz button, and carry out runGame when fired
 let startQuizButton = document.getElementById("start-quiz-button");
 startQuizButton.addEventListener("click", runGame);
+
+/**
+ * Function returns an array with the HTML elements to be changed when the quiz game is run.
+ * A function was used to avoid creating global variables.
+ * @returns array with the variables holding the quiz question and quiz option HTML elements
+ */
+function getQuizHTMLElements() {
+    // declare variables to hold the HTML elements that will be changed during the quiz
+    let quizQuestion = document.getElementById("quiz-question");
+    let quizOptionOne = document.getElementById("quiz-option-one");
+    let quizOptionTwo = document.getElementById("quiz-option-two");
+    let quizOptionThree = document.getElementById("quiz-option-three");
+    let quizOptionFour = document.getElementById("quiz-option-four");
+    let questionAndOptionElements = [quizQuestion, quizOptionOne, quizOptionTwo, quizOptionThree, quizOptionFour];
+
+    return questionAndOptionElements;
+}
 
 function runEasyGame() {
     console.log("Running easy game");
