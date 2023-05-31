@@ -148,7 +148,7 @@ function generateQuestionIndices() {
  * This function will start the game. The function for the relevant game will be called based on which game mode
  * button was chosen, i.e. which game mode button has a "data-chosen" attribute of "true".
  */
-function runGame() {
+function startGame() {
     // declare variables to store the values of the "data-chosen" attributes on the game mode buttons 
     let easyModeChosen = document.getElementById("easy-mode-button").getAttribute("data-chosen");
     let mediumModeChosen = document.getElementById("medium-mode-button").getAttribute("data-chosen");
@@ -182,20 +182,21 @@ function runGame() {
     // check which game mode was selected. if none, alert the user; if one chosen, run that game
     if (easyModeChosen === "false" && mediumModeChosen === "false" && challengingModeChosen === "false") {
         alert("Whoops! Choose a game mode to begin.");
-    } else if (easyModeChosen === "true" || mediumModeChosen === "true" || challengingModeChosen === "true") {
+    } else {
         gameStartChangeDisplay();
-    } else if (easyModeChosen === "true") {
-        runEasyGame(startingQuestionIndex);
-    } else if (mediumModeChosen === "true") {
-        runMediumGame(startingQuestionIndex);
-    } else if (challengingModeChosen === "true") {
-        runChallengingGame(startingQuestionIndex);
+        if (easyModeChosen === "true") {
+            runGame("easyMode");
+        } else if (mediumModeChosen === "true") {
+            runGame("mediumMode");
+        } else if (challengingModeChosen === "true") {
+            runGame("challengingMode");
+        }
     }
 }
 
-// add an event listener for the "click" event to the start quiz button, and carry out runGame when fired
+// add an event listener for the "click" event to the start quiz button, and carry out startGame when fired
 let startQuizButton = document.getElementById("start-quiz-button");
-startQuizButton.addEventListener("click", runGame);
+startQuizButton.addEventListener("click", startGame);
 
 /**
  * Function returns an array with the HTML elements to be changed when the quiz game is run.
@@ -215,10 +216,11 @@ function getQuizHTMLElements() {
 }
 
 /**
- * Runs the easy version of the quiz
+ * Runs the quiz. Takes the game mode as an argument (passed from startGame function)
  */
-function runEasyGame(startingQuestionIndex) {
-    let currentQuestionIndex = startingQuestionIndex;
+function runGame(gameMode) {
+    // set intial question index to 0
+    let currentQuestionIndex = 0;
 
     // get an array with the HTML elements to be changed. first is the quiz question element, then the four quiz option elements
     let quizElements = getQuizHTMLElements();
@@ -228,37 +230,40 @@ function runEasyGame(startingQuestionIndex) {
     let questionIndices = generateQuestionIndices();
 
     /**
-     * This function currently gets four answer options for a quiz question, by pulling 
-     * data from the objects in songsData at the randomly generated indices,
-     * then adding these options to the quiz
+     * Gets the question and answer for a quiz question by calling the function for the
+     * selected game mode, then displays the quiz content in the document
      */
     function generateQuestion(questionIndex) {
-        // QUESTION
-        
+        /**
+         * Gets question content based on which game mode was selected
+         * @returns an object containing the question as a string and an array of four answer options
+         */
+        function getQuestionContent() {
+            if (gameMode === "easyMode") {
+                // get question and answer content for easy quiz
+                let questionContent = generateEasyQuestion(questionIndices[1][questionIndex], questionIndices[0][questionIndex]);
+                return questionContent;
+            } else {
+                alert("Whoops! This game hasn't been created yet");
+            }
+        }
+
+        // store the output of the getQuestionContent function in a variable
+        let questionContent = getQuestionContent();
+
+        // DISPLAY QUESTION
         // create a variable to store the HTML element where the quiz question will go
         let questionElement = quizElements[0];
+        // add question to quiz
+        questionElement.innerHTML = questionContent.question;
 
-        // create a variable to store the song that the question will ask about
-        let questionSongName = songsData[questionIndices[1][questionIndex]].trackName;
-
-        // create HTML with question and add to document
-        let question = `What artist on the list performed <span class="song-title">${questionSongName}</span>?`;
-        questionElement.innerHTML = question;
-
-
-        // ANSWER OPTIONS
-
-        // get four answer options and add each to an HTML option element
+        // DISPLAY ANSWER OPTIONS
+        // create a variable to store the array of answer options
+        let answerOptions = questionContent.answerOptions;
+        // add each answer to an HTML option element
         for (let i = 0; i < 4; i++) {
-            // create a variable to store the artist name at the randomly generated song index
-            // array indices guide: first index - the answerIndices array in questionIndices
-            // second index - the question number, i.e. the index of a an array in answerIndices (which contains four answer options)
-            // third index - the option number, i.e. indices 0-3 in each options array
-            let newOption = songsData[questionIndices[0][questionIndex][i]].artistName;
-
-            // add the artist name to the HTML
             // i + 1 because the option elements start at index 1 in the quizElements array - index 0 is the question element
-            quizElements[i + 1].innerHTML = newOption;
+            quizElements[i + 1].innerHTML = answerOptions[i];
         }
     }
 
@@ -354,6 +359,41 @@ function runEasyGame(startingQuestionIndex) {
     let nextQuestionButton = document.getElementById("next-question-button");
     // run the next question (or finish game) when "next" is clicked
     nextQuestionButton.addEventListener("click", runNextQuestion);
+}
+
+/**
+ * Generates a question and answer options for the easy version of the quiz.
+ * Finds the song title of the correct answer index and creates a question with it,
+ * then gets the artist names of the four answer option indices.
+ * @param {number} correctAnswerIndex - the index of the correct song answer in songs.json
+ * @param {Array} allOptionsArray - an array of the indices for all four answer options
+ * @returns an object containing the quiz question as a string and an array of the four answer options
+ */
+function generateEasyQuestion(correctAnswerIndex, allOptionsArray) {
+    // QUESTION
+    // create a variable to store the song that the question will ask about
+    let questionSongName = songsData[correctAnswerIndex].trackName;
+
+    // create the string with the question HTML
+    let question = `What artist on the list performed <span class="song-title">${questionSongName}</span>?`;
+
+    // ANSWER OPTIONS
+    // create an empty array to hold the answer options
+    let answerOptions = [];
+
+    // get four answer options
+    for (let i = 0; i < 4; i++) {
+        // create a variable to store the artist name at each of the four answer indices
+        let newOption = songsData[allOptionsArray[i]].artistName;
+
+        // add the new artist name to answerOptions array
+        answerOptions.push(newOption);
+    }
+
+    return {
+        question: question,
+        answerOptions: answerOptions
+    };
 }
 
 function runMediumGame() {
