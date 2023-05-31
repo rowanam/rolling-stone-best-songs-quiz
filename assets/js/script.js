@@ -157,9 +157,33 @@ function runGame() {
     // declare a variable to store the starting index value for the question counter
     let startingQuestionIndex = 0;
 
+    /**
+     * Changes the elements that are displayed on game start.
+     * Hides game mode question and start quiz button, reveals quiz.
+     */
+    function gameStartChangeDisplay() {
+        // create an empty array to hold the elements that should be hidden
+        let elementsToHide = [];
+
+        // add the game mode question and the start quiz button to the hide array
+        elementsToHide.push(document.getElementById("game-mode-question"));
+        elementsToHide.push(document.getElementById("start-quiz-button"));
+
+        // set display to none for elements to be hidden
+        for (let element of elementsToHide) {
+            element.setAttribute("style", "display: none;");
+        }
+
+        // display the quiz
+        let activeGameWrapper = document.getElementById("active-game-wrapper");
+        activeGameWrapper.setAttribute("style", "display: initial;");
+    }
+
     // check which game mode was selected. if none, alert the user; if one chosen, run that game
     if (easyModeChosen === "false" && mediumModeChosen === "false" && challengingModeChosen === "false") {
         alert("Whoops! Choose a game mode to begin.");
+    } else if (easyModeChosen === "true" || mediumModeChosen === "true" || challengingModeChosen === "true") {
+        gameStartChangeDisplay();
     } else if (easyModeChosen === "true") {
         runEasyGame(startingQuestionIndex);
     } else if (mediumModeChosen === "true") {
