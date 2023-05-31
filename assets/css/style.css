@@ -19,7 +19,7 @@ h2,
 #game-wrapper, /* the game - all content except for the heading */
 #mode-wrapper, /* the game mode div - question and game mode buttons */
 .score-section, /* each score section - the score label (e.g. "correct") and score underneath */
-#results-wrapper, /* the results div */
+#result-wrapper, /* the result div */
 #correct-answer-wrapper {
     display: flex;
     flex-direction: column;
@@ -65,10 +65,10 @@ h1 {
     width: 60%;
 }
 
-/* NUMBER OF QUESTIONS */
+/* ACTIVE GAME WRAPPER */
 
-.number-questions-content {
-    display: inline-block;
+#active-game-wrapper {
+    display: none;
 }
 
 /* SCORE */
@@ -119,4 +119,10 @@ h1 {
 
 #correctness-result {
     font-size: 1.5rem;
+}
+
+/* RESULT */
+
+#result-wrapper {
+    display: none;
 }
