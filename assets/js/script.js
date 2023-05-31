@@ -254,7 +254,7 @@ function runEasyGame(startingQuestionIndex) {
      */
     function optionButtonChosen() {
         // set "data-chosen" of all option buttons to "false"
-        for (let button of modeButtons) {
+        for (let button of optionButtons) {
             button.setAttribute("data-chosen", "false")
         }
 
@@ -267,6 +267,44 @@ function runEasyGame(startingQuestionIndex) {
         button.addEventListener("click", optionButtonChosen);
     }
     // ---
+
+    /**
+     * This function will check if the answer selected was correct (called when the user clicks submit)
+     */
+    function checkAnswer() {
+        // get the index of the correct answer to the question
+        // pulled from questionIndices, second array (the array of correct answers), then the array of the current question number
+        let correctAnswerIndexValue = questionIndices[1][currentQuestionIndex];
+        // then, find the position of that index value in the first array (the array of answer options), and the array of the current question number within that
+        let correctAnswerArrayPosition = questionIndices[0][currentQuestionIndex].indexOf(correctAnswerIndexValue);
+
+        // store the button with the correct answer
+        let correctOptionButton = optionButtons[correctAnswerArrayPosition];
+
+        // create an empty array to hold the value of the option buttons "data-chosen" attributes
+        let optionsChosen = [];
+
+        // add the value of "data-chosen" on each button to optionsChosen
+        for (let button of optionButtons) {
+            optionsChosen.push(button.getAttribute("data-chosen"));
+        }
+
+        // if no options were selected, alert user to select an option
+        // if the selected option is the correct one (i.e. if the correct option is the button with a "data-chosen" value of "true"),
+        // the user will be alerted that they were correct
+        // if not, they will be alerted that they were wrong
+        if (optionsChosen[0] === "false" && optionsChosen[1] === "false" && optionsChosen[2] === "false"  && optionsChosen[3] === "false") {
+            alert("Whoops! Choose an option.");
+        } else if (correctOptionButton.getAttribute("data-chosen") === "true") {
+            alert("Correct!");
+        } else {
+            alert("Wrong");
+        }
+    }
+
+    // add event listener to submit button to trigger answer checking when clicked
+    let submitAnswerButton = document.getElementById("submit-answer-button");
+    submitAnswerButton.addEventListener("click", checkAnswer);
 
     /**
      * Runs the next question in the game. Increments the current question number and displays it.
