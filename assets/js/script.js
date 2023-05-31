@@ -209,6 +209,21 @@ function runEasyGame(startingQuestionIndex) {
      * then adding these options to the quiz
      */
     function generateQuestion(questionIndex) {
+        // QUESTION
+        
+        // create a variable to store the HTML element where the quiz question will go
+        let questionElement = quizElements[0];
+
+        // create a variable to store the song that the question will ask about
+        let questionSongName = songsData[questionIndices[1][questionIndex]].trackName;
+
+        // create HTML with question and add to document
+        let question = `What artist on the list performed <span class="song-title">${questionSongName}</span>?`;
+        questionElement.innerHTML = question;
+
+
+        // ANSWER OPTIONS
+
         // get four answer options and add each to an HTML option element
         for (let i = 0; i < 4; i++) {
             // create a variable to store the artist name at the randomly generated song index
@@ -239,7 +254,9 @@ function runEasyGame(startingQuestionIndex) {
         }
     }
 
+    // store the next question button element in a variable
     let nextQuestionButton = document.getElementById("next-question-button");
+    // run the next question (or finish game) when "next" is clicked
     nextQuestionButton.addEventListener("click", runNextQuestion);
 }
 
