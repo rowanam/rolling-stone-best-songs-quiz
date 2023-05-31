@@ -241,6 +241,33 @@ function runEasyGame(startingQuestionIndex) {
     // get and display the first question options
     generateQuestion(currentQuestionIndex);
 
+    // ---
+    // this code section sets one of the quiz option buttons' "data-chosen" attribute to "true"
+    // when clicked and all others to false
+
+    // create an HTMLCollection of the option buttons
+    let optionButtons = document.getElementsByClassName("quiz-button");
+
+    /**
+     * Sets the "data-chosen" attribute of the clicked option button to "true", and resets 
+     * the attribute to "false" for all other option buttons
+     */
+    function optionButtonChosen() {
+        // set "data-chosen" of all option buttons to "false"
+        for (let button of modeButtons) {
+            button.setAttribute("data-chosen", "false")
+        }
+
+        // set to "true" for the clicked button
+        this.setAttribute("data-chosen", "true");
+    }
+
+    // add "click" event listeners to the option buttons and pass the above function as event handler
+    for (let button of optionButtons) {
+        button.addEventListener("click", optionButtonChosen);
+    }
+    // ---
+
     /**
      * Runs the next question in the game. Increments the current question number and displays it.
      * If question limit isn't reached, runs the next question; if it is, finished the game.
