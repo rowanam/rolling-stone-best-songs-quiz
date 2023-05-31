@@ -154,9 +154,6 @@ function startGame() {
     let mediumModeChosen = document.getElementById("medium-mode-button").getAttribute("data-chosen");
     let challengingModeChosen = document.getElementById("challenging-mode-button").getAttribute("data-chosen");
 
-    // declare a variable to store the starting index value for the question counter
-    let startingQuestionIndex = 0;
-
     /**
      * Changes the elements that are displayed on game start.
      * Hides game mode question and start quiz button, reveals quiz.
@@ -279,15 +276,25 @@ function runGame(gameMode) {
 
     /**
      * Sets the "data-chosen" attribute of the clicked option button to "true", and resets 
-     * the attribute to "false" for all other option buttons
+     * the attribute to "false" for all other option buttons.
+     * Also changes sizing of icons to visually show user which option was last selected.
      */
     function optionButtonChosen() {
+        // reset all vinyl icons to height of 50px
+        for (let button of optionButtons) {
+            let vinylIcon = button.firstElementChild;
+            vinylIcon.style.height = "50px";
+        }
+
         // set "data-chosen" of all option buttons to "false"
         for (let button of optionButtons) {
             button.setAttribute("data-chosen", "false")
         }
 
-        // set to "true" for the clicked button
+        // make height of selected vinyl icon 60px
+        this.firstElementChild.style.height = "60px";
+
+        // set "data-chosen" to "true" for the selected button
         this.setAttribute("data-chosen", "true");
     }
 

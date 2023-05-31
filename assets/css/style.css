@@ -98,10 +98,28 @@ h1 {
 .quiz-button {
     border: none;
     background-color: transparent;
+
+    /* make button 60x60 for when icon gets larger on click */
+    height: 60px;
+    width: 60px;
+
+    /* position the icons in the centers of the buttons */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quiz-option-answer {
+    margin-left: 10px;
 }
 
 .vinyl-button-icon {
     height: 50px;
+    transition: transform 1s;
+}
+
+.vinyl-button-icon:hover{
+    transform: rotate(360deg);
 }
 
 /* CONTROL BUTTONS */
