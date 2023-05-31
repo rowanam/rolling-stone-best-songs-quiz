@@ -126,7 +126,11 @@ h1 {
 
 #quiz-controls-wrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+}
+
+#next-question-button {
+    display: none;
 }
 
 /* CORRECT ANSWER */

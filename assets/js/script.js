@@ -304,6 +304,10 @@ function runGame(gameMode) {
     }
     // ---
 
+    // store the game control button elements to add event listeners and so their displays can be changed during game play
+    let submitAnswerButton = document.getElementById("submit-answer-button");
+    let nextQuestionButton = document.getElementById("next-question-button");
+
     /**
      * This function will check if the answer selected was correct (called when the user clicks submit)
      */
@@ -349,17 +353,24 @@ function runGame(gameMode) {
 
             // make correct answer div visible
             correctAnswerWrapper.style.display = "flex";
+
+            // hide submit answer button and display next question button
+            submitAnswerButton.style.display = "none";
+            nextQuestionButton.style.display = "initial";
         } else {
             correctnessResult.innerHTML = "Wrong";
             correctnessResult.style.color = "red";
 
             // make correct answer div visible
             correctAnswerWrapper.style.display = "flex";
+
+            // hide submit answer button and display next question button
+            submitAnswerButton.style.display = "none";
+            nextQuestionButton.style.display = "initial";
         }
     }
 
     // add event listener to submit button to trigger answer checking when clicked
-    let submitAnswerButton = document.getElementById("submit-answer-button");
     submitAnswerButton.addEventListener("click", checkAnswer);
 
     /**
@@ -367,6 +378,10 @@ function runGame(gameMode) {
      * If question limit isn't reached, runs the next question; if it is, finished the game.
      */
     function runNextQuestion() {
+        // display submit answer button and hide next question button
+        submitAnswerButton.style.display = "initial";
+        nextQuestionButton.style.display = "none";
+
         // increment question number
         currentQuestionIndex++;
 
@@ -382,8 +397,6 @@ function runGame(gameMode) {
         }
     }
 
-    // store the next question button element in a variable
-    let nextQuestionButton = document.getElementById("next-question-button");
     // run the next question (or finish game) when "next" is clicked
     nextQuestionButton.addEventListener("click", runNextQuestion);
 }
