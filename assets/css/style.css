@@ -8,7 +8,9 @@ button {
 
 h1,
 h2,
-.song-title {
+.song-title,
+#correctness-result,
+.correct-answer {
     font-family: Lobster, Times, serif;
 }
 
@@ -17,7 +19,8 @@ h2,
 #game-wrapper, /* the game - all content except for the heading */
 #mode-wrapper, /* the game mode div - question and game mode buttons */
 .score-section, /* each score section - the score label (e.g. "correct") and score underneath */
-#results-wrapper /* the results div */ {
+#results-wrapper, /* the results div */
+#correct-answer-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -106,4 +109,14 @@ h1 {
 #quiz-controls-wrapper {
     display: flex;
     justify-content: space-between;
+}
+
+/* CORRECT ANSWER */
+
+#correct-answer-wrapper {
+    display: none;
+}
+
+#correctness-result {
+    font-size: 1.5rem;
 }
