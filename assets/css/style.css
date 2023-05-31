@@ -100,3 +100,10 @@ h1 {
 .vinyl-button-icon {
     height: 50px;
 }
+
+/* CONTROL BUTTONS */
+
+#quiz-controls-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
