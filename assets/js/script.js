@@ -325,6 +325,18 @@ function runGame(gameMode) {
             optionsChosen.push(button.getAttribute("data-chosen"));
         }
 
+        // store correct answer wrapper HTML element in order to display whether guess was correct or not and display correct answer
+        let correctAnswerWrapper = document.getElementById("correct-answer-wrapper");
+
+        // store the HTML elements that will display whether the user was correct and what the correct answer was
+        let correctnessResult = document.getElementById("correctness-result");
+        let correctAnswerDisplay = document.getElementById("correct-answer-display");
+
+        // create the correct answer display HTML based on the game mode
+        if (gameMode === "easyMode") {
+            correctAnswerDisplay.innerHTML = generateEasyCorrectAnswerDisplay(correctAnswerIndexValue);
+        }
+
         // if no options were selected, alert user to select an option
         // if the selected option is the correct one (i.e. if the correct option is the button with a "data-chosen" value of "true"),
         // the user will be alerted that they were correct
@@ -332,9 +344,17 @@ function runGame(gameMode) {
         if (optionsChosen[0] === "false" && optionsChosen[1] === "false" && optionsChosen[2] === "false"  && optionsChosen[3] === "false") {
             alert("Whoops! Choose an option.");
         } else if (correctOptionButton.getAttribute("data-chosen") === "true") {
-            alert("Correct!");
+            correctnessResult.innerHTML = "Correct!";
+            correctnessResult.style.color = "green";
+
+            // make correct answer div visible
+            correctAnswerWrapper.style.display = "flex";
         } else {
-            alert("Wrong");
+            correctnessResult.innerHTML = "Wrong";
+            correctnessResult.style.color = "red";
+
+            // make correct answer div visible
+            correctAnswerWrapper.style.display = "flex";
         }
     }
 
@@ -401,6 +421,22 @@ function generateEasyQuestion(correctAnswerIndex, allOptionsArray) {
         question: question,
         answerOptions: answerOptions
     };
+}
+
+/**
+ * Creates a string of HTML to display the correct answer
+ * @param {number} correctAnswerIndex 
+ * @returns correct answer string for HTML display
+ */
+function generateEasyCorrectAnswerDisplay(correctAnswerIndex) {
+    // get the song name and artist name of the correct answer
+    let correctSongName = songsData[correctAnswerIndex].trackName;
+    let correctSongArtist = songsData[correctAnswerIndex].artistName;
+
+    // create the HTML content to display to the correct answer
+    let correctAnswer = `<span class="correct-answer">${correctSongName}</span> was performed by <span class="correct-answer">${correctSongArtist}</span>`;
+
+    return correctAnswer;
 }
 
 function runMediumGame() {
