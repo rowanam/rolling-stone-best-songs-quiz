@@ -242,11 +242,18 @@ function runEasyGame(startingQuestionIndex) {
     generateQuestion(currentQuestionIndex);
 
     /**
-     * Runs the next question in the game. Increments the current question number, checks that 
-     * it is less than 15. If so, runs the next question, if not, finishes the game
+     * Runs the next question in the game. Increments the current question number and displays it.
+     * If question limit isn't reached, runs the next question; if it is, finished the game.
      */
     function runNextQuestion() {
+        // increment question number
         currentQuestionIndex++;
+
+        // get HTML element for number of questions answered and update it
+        let answeredCount = document.getElementById("answered-count");
+        answeredCount.innerHTML = currentQuestionIndex;
+
+        // check if last question reached in order to display next question or finish game
         if (currentQuestionIndex < 15) {
             generateQuestion(currentQuestionIndex);
         } else {
