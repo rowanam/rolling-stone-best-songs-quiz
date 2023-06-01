@@ -310,11 +310,13 @@ function runGame(gameMode) {
     }
     // ---
 
-    // store the game control button elements to add event listeners and so their displays can be changed during game play
+    // store the game control button elements
     let submitAnswerButton = document.getElementById("submit-answer-button");
     let nextQuestionButton = document.getElementById("next-question-button");
 
-    // store the correct answer display div element
+    // store the correct answer div elements
+    let correctAnswerWrapper = document.getElementById("correct-answer-wrapper");
+    let correctnessResult = document.getElementById("correctness-result");
     let correctAnswerDisplay = document.getElementById("correct-answer-display");
 
     /**
@@ -337,12 +339,6 @@ function runGame(gameMode) {
         for (let button of optionButtons) {
             optionsChosen.push(button.getAttribute("data-chosen"));
         }
-
-        // store correct answer wrapper HTML element in order to display whether guess was correct or not and display correct answer
-        let correctAnswerWrapper = document.getElementById("correct-answer-wrapper");
-
-        // store the HTML elements that will display whether the user was correct
-        let correctnessResult = document.getElementById("correctness-result");
 
         // create the correct answer display HTML based on the game mode
         if (gameMode === "easyMode") {
@@ -384,20 +380,26 @@ function runGame(gameMode) {
     // add event listener to submit button to trigger answer checking when clicked
     submitAnswerButton.addEventListener("click", checkAnswer);
 
-    /**
-     * Runs the next question in the game. Increments the current question number and displays it.
-     * If question limit isn't reached, runs the next question; if it is, finished the game.
-     */
-    function runNextQuestion() {
+    function resetDisplayNewQuestion() {
         // reset size and "data-chosen" attributes of option buttons
         resetOptionButtons();
 
-        // reset display of correct answer
+        // reset correct answer div and correct answer display
+        correctAnswerWrapper.style.display = "";
         correctAnswerDisplay.style.display = "";
 
         // display submit answer button and hide next question button
         submitAnswerButton.style.display = "initial";
         nextQuestionButton.style.display = "none";
+    }
+
+    /**
+     * Runs the next question in the game. Increments the current question number and displays it.
+     * If question limit isn't reached, runs the next question; if it is, finished the game.
+     */
+    function runNextQuestion() {
+        // reset the display
+        resetDisplayNewQuestion();
 
         // increment question number
         currentQuestionIndex++;
