@@ -11,27 +11,34 @@ fetch('./assets/data/songs.json')
 let modeButtons = document.getElementsByClassName("mode-button");
 
 /**
- * Sets the "data-chosen" attribute of the clicked mode button to "true", and resets the attribute
- * to "false" for all other cateogry buttons; then applies styles to the selected button and resets the
- * styles on the other buttons
+ * Resets the "data-chosen" attribute and highlighting styles of all mode buttons
+ */
+function resetModeButtons() {
+    for (let button of modeButtons) {
+        // set "data-chosen" of all mode buttons to "false"
+        button.setAttribute("data-chosen", "false")
+
+        // reset styles
+        button.style.color = "";
+        button.style.backgroundColor = "";
+    }
+}
+
+/**
+ * Resets all mode buttons, then sets "data-chosen" to "true" and applies styles to the clicked button
  */
 function modeButtonChosen() {
-    // set "data-chosen" of all mode buttons to "false"
-    for (let button of modeButtons) {
-        button.setAttribute("data-chosen", "false")
-    }
+    // reset "data-chosen" value and styles for all mode buttons
+    resetModeButtons();
 
     // set to "true" for the clicked button
     this.setAttribute("data-chosen", "true");
 
-    // apply highlighting styles to the clicked button and reset styles of all other buttons
+    // apply highlighting styles to the clicked button
     for (button of modeButtons) {
         if (button.getAttribute("data-chosen") === "true") {
             button.style.color = "white";
             button.style.backgroundColor = "rgb(238, 29, 37)";
-        } else {
-            button.style.color = "";
-            button.style.backgroundColor = "";
         }
     }
 }
@@ -502,3 +509,28 @@ function finishGame(correctCount) {
     let resultWrapper = document.getElementById("result-wrapper");
     resultWrapper.style.display = "flex";
 }
+
+function resetPage() {
+    // create an empty array to hold the elements that should be displayed
+    let elementsToDisplay = [];
+
+    // add the game mode question and the start quiz button to the display array
+    elementsToDisplay.push(document.getElementById("game-mode-question"));
+    elementsToDisplay.push(document.getElementById("start-quiz-button"));
+
+    // reset display
+    for (let element of elementsToDisplay) {
+        element.style.display = "";
+    }
+
+    // reset the mode buttons
+    resetModeButtons();
+
+    // hide the result div
+    let resultWrapper = document.getElementById("result-wrapper");
+    resultWrapper.style.display = "none";
+}
+
+// add an event listener to the play again button to reset the game
+let playAgainButton = document.getElementById("play-again");
+playAgainButton.addEventListener("click", resetPage);
