@@ -314,6 +314,9 @@ function runGame(gameMode) {
     let submitAnswerButton = document.getElementById("submit-answer-button");
     let nextQuestionButton = document.getElementById("next-question-button");
 
+    // store the correct answer display div element
+    let correctAnswerDisplay = document.getElementById("correct-answer-display");
+
     /**
      * This function will check if the answer selected was correct (called when the user clicks submit)
      */
@@ -338,9 +341,8 @@ function runGame(gameMode) {
         // store correct answer wrapper HTML element in order to display whether guess was correct or not and display correct answer
         let correctAnswerWrapper = document.getElementById("correct-answer-wrapper");
 
-        // store the HTML elements that will display whether the user was correct and what the correct answer was
+        // store the HTML elements that will display whether the user was correct
         let correctnessResult = document.getElementById("correctness-result");
-        let correctAnswerDisplay = document.getElementById("correct-answer-display");
 
         // create the correct answer display HTML based on the game mode
         if (gameMode === "easyMode") {
@@ -370,6 +372,9 @@ function runGame(gameMode) {
             // make correct answer div visible
             correctAnswerWrapper.style.display = "flex";
 
+            // make correct answer visible
+            correctAnswerDisplay.style.display = "initial";
+
             // hide submit answer button and display next question button
             submitAnswerButton.style.display = "none";
             nextQuestionButton.style.display = "initial";
@@ -386,6 +391,9 @@ function runGame(gameMode) {
     function runNextQuestion() {
         // reset size and "data-chosen" attributes of option buttons
         resetOptionButtons();
+
+        // reset display of correct answer
+        correctAnswerDisplay.style.display = "";
 
         // display submit answer button and hide next question button
         submitAnswerButton.style.display = "initial";
