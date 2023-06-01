@@ -275,21 +275,27 @@ function runGame(gameMode) {
     let optionButtons = document.getElementsByClassName("quiz-button");
 
     /**
+     * Resets the size and "data-chosen" attributes of all quiz option buttons
+     */
+    function resetOptionButtons() {
+        for (let button of optionButtons) {
+            // reset all vinyl icons to height of 50px
+            let vinylIcon = button.firstElementChild;
+            vinylIcon.style.height = "50px";
+
+            // set "data-chosen" of all option buttons to "false"
+            button.setAttribute("data-chosen", "false")
+        }
+    }
+
+    /**
      * Sets the "data-chosen" attribute of the clicked option button to "true", and resets 
      * the attribute to "false" for all other option buttons.
      * Also changes sizing of icons to visually show user which option was last selected.
      */
     function optionButtonChosen() {
-        // reset all vinyl icons to height of 50px
-        for (let button of optionButtons) {
-            let vinylIcon = button.firstElementChild;
-            vinylIcon.style.height = "50px";
-        }
-
-        // set "data-chosen" of all option buttons to "false"
-        for (let button of optionButtons) {
-            button.setAttribute("data-chosen", "false")
-        }
+        // reset button sizes and "data-chosen" values
+        resetOptionButtons();
 
         // make height of selected vinyl icon 60px
         this.firstElementChild.style.height = "60px";
@@ -378,6 +384,9 @@ function runGame(gameMode) {
      * If question limit isn't reached, runs the next question; if it is, finished the game.
      */
     function runNextQuestion() {
+        // reset size and "data-chosen" attributes of option buttons
+        resetOptionButtons();
+
         // display submit answer button and hide next question button
         submitAnswerButton.style.display = "initial";
         nextQuestionButton.style.display = "none";
