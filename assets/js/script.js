@@ -380,6 +380,9 @@ function runGame(gameMode) {
     // add event listener to submit button to trigger answer checking when clicked
     submitAnswerButton.addEventListener("click", checkAnswer);
 
+    /**
+     * Resets the quiz display
+     */
     function resetDisplayNewQuestion() {
         // reset size and "data-chosen" attributes of option buttons
         resetOptionButtons();
@@ -480,5 +483,11 @@ function runChallengingGame() {
 }
 
 function finishGame() {
-    console.log("Game finished");
+    // hide quiz
+    let activeGameWrapper = document.getElementById("active-game-wrapper");
+    activeGameWrapper.style.display = "";
+
+    // display result
+    let resultWrapper = document.getElementById("result-wrapper");
+    resultWrapper.style.display = "flex";
 }
