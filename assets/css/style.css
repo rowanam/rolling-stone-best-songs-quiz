@@ -10,7 +10,8 @@ h1,
 h2,
 .song-title,
 #correctness-result,
-.correct-answer {
+.correct-answer,
+#result-score {
     font-family: Lobster, Times, serif;
 }
 

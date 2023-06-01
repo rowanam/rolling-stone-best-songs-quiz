@@ -319,6 +319,9 @@ function runGame(gameMode) {
     let correctnessResult = document.getElementById("correctness-result");
     let correctAnswerDisplay = document.getElementById("correct-answer-display");
 
+    // set initial number of correct guesses to 0
+    let correctCount = 0;
+
     /**
      * This function will check if the answer selected was correct (called when the user clicks submit)
      */
@@ -352,6 +355,10 @@ function runGame(gameMode) {
         if (optionsChosen[0] === "false" && optionsChosen[1] === "false" && optionsChosen[2] === "false"  && optionsChosen[3] === "false") {
             alert("Whoops! Choose an option.");
         } else if (correctOptionButton.getAttribute("data-chosen") === "true") {
+            // add 1 to correct guesses count if answer correct
+            correctCount++;
+
+            // display "Correct!" to user
             correctnessResult.innerHTML = "Correct!";
             correctnessResult.style.color = "green";
 
@@ -362,6 +369,7 @@ function runGame(gameMode) {
             submitAnswerButton.style.display = "none";
             nextQuestionButton.style.display = "initial";
         } else {
+            // display "Wrong" to user
             correctnessResult.innerHTML = "Wrong";
             correctnessResult.style.color = "red";
 
@@ -415,7 +423,7 @@ function runGame(gameMode) {
         if (currentQuestionIndex < 15) {
             generateQuestion(currentQuestionIndex);
         } else {
-            finishGame();
+            finishGame(correctCount);
         }
     }
 
@@ -482,10 +490,13 @@ function runChallengingGame() {
     console.log("Running challenging game");
 }
 
-function finishGame() {
+function finishGame(correctCount) {
     // hide quiz
     let activeGameWrapper = document.getElementById("active-game-wrapper");
     activeGameWrapper.style.display = "";
+
+    let totalCorrect = document.getElementById("total-correct");
+    totalCorrect.innerHTML = correctCount;
 
     // display result
     let resultWrapper = document.getElementById("result-wrapper");
