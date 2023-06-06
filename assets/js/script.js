@@ -226,6 +226,10 @@ function runGame(gameMode) {
     // set intial question index to 0
     let currentQuestionIndex = 0;
 
+    // set number of questions answered display to 0 initially
+    let answeredCount = document.getElementById("answered-count");
+    answeredCount.innerHTML = currentQuestionIndex;
+
     // get an array with the HTML elements to be changed. first is the quiz question element, then the four quiz option elements
     let quizElements = getQuizHTMLElements();
 
@@ -511,24 +515,7 @@ function finishGame(correctCount) {
 }
 
 function resetPage() {
-    // create an empty array to hold the elements that should be displayed
-    let elementsToDisplay = [];
-
-    // add the game mode question and the start quiz button to the display array
-    elementsToDisplay.push(document.getElementById("game-mode-question"));
-    elementsToDisplay.push(document.getElementById("start-quiz-button"));
-
-    // reset display
-    for (let element of elementsToDisplay) {
-        element.style.display = "";
-    }
-
-    // reset the mode buttons
-    resetModeButtons();
-
-    // hide the result div
-    let resultWrapper = document.getElementById("result-wrapper");
-    resultWrapper.style.display = "none";
+    location.reload();
 }
 
 // add an event listener to the play again button to reset the game
