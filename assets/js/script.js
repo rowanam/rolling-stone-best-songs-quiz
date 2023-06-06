@@ -256,7 +256,10 @@ function runGame(gameMode) {
          * @returns an object containing the question as a string and an array of four answer options
          */
         function getQuestionContent() {
+            let questionContent = generateQuestionContent(questionIndices[1][questionIndex], questionIndices[0][questionIndex], gameMode);
+            return questionContent;
             // pass each content generating function the random indices for the answer options and the correct answer
+            /*
             if (gameMode === "easyMode") {
                 // get question and answer content for easy quiz
                 let questionContent = generateQuestionContent(questionIndices[1][questionIndex], questionIndices[0][questionIndex], gameMode);
@@ -268,6 +271,7 @@ function runGame(gameMode) {
             } else {
                 alert("Whoops! This game hasn't been created yet");
             }
+            */
         }
 
         // store the output of the getQuestionContent function in a variable
@@ -493,17 +497,106 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
     }
 
     /**
+     * Returns the rank bracket of a song rank (intervals of 50)
+     * @param {number} rank
+     * @returns rankBracket
+     */
+    function getRankBracket(rank) {
+        let rankBracket;
+
+        if (rank <= 50) {
+            rankBracket = "1 to 50";
+        } else if (rank <= 100) {
+            rankBracket = "51 to 100";
+        } else if (rank <= 150) {
+            rankBracket = "101 to 150";
+        } else if (rank <= 200) {
+            rankBracket = "151 to 200";
+        } else if (rank <= 250) {
+            rankBracket = "201 to 250";
+        } else if (rank <= 300) {
+            rankBracket = "251 to 300";
+        } else if (rank <= 350) {
+            rankBracket = "301 to 350";
+        } else if (rank <= 400) {
+            rankBracket = "351 to 400";
+        } else if (rank <= 450) {
+            rankBracket = "401 to 450";
+        } else if (rank <= 500) {
+            rankBracket = "451 to 500";
+        }
+
+        return rankBracket;
+    }
+
+    /**
+     * Gets four answer options for the rank bracket question
+     */
+    function getFourAnswerValuesRankBrackets() {
+        // get correct answer rank bracket
+        let correctAnswerRank = songsData[correctAnswerIndex].rank;
+        let correctAnswerRankBracket = getRankBracket(correctAnswerRank);
+
+        /**
+         * Generates a random rank bracket
+         * @returns a random rank bracket
+         */
+        function generateRandomRankBracket() {
+            // picks a random number between 0 and 9 (inclusive), then multiplies it by 50 and adds 1
+            // this way, it will always be the first value in one of the above rank brackets
+            let randomNum = Math.floor(Math.random() * 10);
+            let randomRank = randomNum * 50 + 1;
+            let randomRankBracket = getRankBracket(randomRank);
+
+            // return the randomly generated rank bracket
+            return randomRankBracket;
+        }
+
+        /**
+         * Adds three random rank brackets to answerOptions array.
+         * Checks that the new rank bracket isn't already in the array or the same as the correct answer, and loops until
+         * it finds a new option, then adds it to the array.
+         */
+        function addRankBracketOption() {
+            // generates a random rank bracket
+            let newRankBracketOption = generateRandomRankBracket();
+
+            // if the generated bracket is the same as the correct answer or already in the array, generates again
+            // until a new option is found
+            while (newRankBracketOption === correctAnswerRankBracket || answerOptions.includes(newRankBracketOption)) {
+                newRankBracketOption = generateRandomRankBracket();
+            }
+            
+            // adds the new (unique) option to the array
+            answerOptions.push(newRankBracketOption);
+        }
+
+        // adds three new rank brackets to the answer options
+        while (answerOptions.length < 3) {
+            addRankBracketOption();
+        }
+
+        // inserts the correct answer array bracket into its original position in the list of answers
+        // --> this is done because the check answer function that is run during the game marks the correct answer
+        //     based on its location in the generated list of answer indices
+        let correctAnswerArrayPosition = allOptionsArray.indexOf(correctAnswerIndex);
+        answerOptions.splice(correctAnswerArrayPosition, 0, correctAnswerRankBracket);
+    }
+
+    let questionSongNameHTML = `<span class="song-title">${questionSongName}</span>`;
+
+    /**
      * Creates question and gets answer options for question about artist
      */
     function artistQuestion() {
         // create the string with the question HTML
-        question = `What <span class="question-type">artist</span> on the list performed <span class="song-title">${questionSongName}</span>?`;
+        question = `What <span class="question-type">artist</span> on the list performed ${questionSongNameHTML}?`;
 
         // get four answer options
         getFourAnswerValues("artistName");
 
         // set answerType
-        answerType = ("artistName");
+        answerType = "artistName";
     }
 
     /**
@@ -511,13 +604,13 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
      */
     function yearQuestion() {
         // create the string with the question HTML
-        question = `What <span class="question-type">year</span> was the song <span class="song-title">${questionSongName}</span> (as performed by ${questionArtistName}) released?`;
+        question = `What <span class="question-type">year</span> was the song ${questionSongNameHTML} (as performed by ${questionArtistName}) released?`;
 
         // get four answer options
         getFourAnswerValues("albumReleaseYear");
 
         // set answerType
-        answerType = ("albumReleaseYear");
+        answerType = "albumReleaseYear";
     }
 
     /**
@@ -525,13 +618,19 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
      */
     function albumNameQuestion() {
         // create the string with the question HTML
-        question = `Which <span class="question-type">album</span> included the song <span class="song-title">${questionSongName}</span>?`;
+        question = `Which <span class="question-type">album</span> included the song ${questionSongNameHTML}?`;
 
         // get four answer options
         getFourAnswerValues("albumName");
 
         // set answerType
-        answerType = ("albumName");
+        answerType = "albumName";
+    }
+
+    function rankBracketQuestion() {
+        question = `What is the <span class="question-type">rank</span> of ${questionSongNameHTML} on the list?`;
+        getFourAnswerValuesRankBrackets();
+        answerType = "rank";
     }
 
     // check which game mode is being played and create appropriate questions
@@ -552,6 +651,8 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
         } else if (questionType === 2) {
             albumNameQuestion();
         }
+    } else if (gameMode === "challengingMode") {
+        rankBracketQuestion();
     }
 
     // function returns an object containing the question (HTMl string) and an array of answer options
@@ -579,14 +680,20 @@ function generateCorrectAnswerDisplay(correctAnswerIndex, answerType) {
     let correctReleaseYear = songsData[correctAnswerIndex].albumReleaseYear;
     // get the album name of the correct asnwer
     let correctAlbumName = songsData[correctAnswerIndex].albumName;
+    // get the rank of the correct answer
+    let correctRank = songsData[correctAnswerIndex].rank;
+
+    let correctSongNameHTMl = `<span class="correct-answer">${correctSongName}</span>`;
 
     // create the HTML content to display to the correct answer
     if (answerType === "artistName") {
-        correctAnswer = `<span class="correct-answer">${correctSongName}</span> was performed by <span class="correct-answer">${correctSongArtist}</span>`;
+        correctAnswer = `${correctSongNameHTMl} was performed by <span class="correct-answer">${correctSongArtist}</span>`;
     } else if (answerType === "albumReleaseYear") {
-        correctAnswer = `<span class="correct-answer">${correctSongName}</span> was released in <span class="correct-answer">${correctReleaseYear}</span>`;
+        correctAnswer = `${correctSongNameHTMl} was released in <span class="correct-answer">${correctReleaseYear}</span>`;
     } else if (answerType === "albumName") {
-        correctAnswer = `<span class="correct-answer">${correctSongName}</span> was on the album <span class="correct-answer">${correctAlbumName}</span>`;
+        correctAnswer = `${correctSongNameHTMl} was on the album <span class="correct-answer">${correctAlbumName}</span>`;
+    } else if (answerType === "rank") {
+        correctAnswer = `${correctSongNameHTMl} was placed at rank <span class="correct-answer">${correctRank}</span>`;
     }
 
     return correctAnswer;
