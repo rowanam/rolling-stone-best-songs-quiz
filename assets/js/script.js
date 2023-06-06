@@ -253,9 +253,14 @@ function runGame(gameMode) {
          * @returns an object containing the question as a string and an array of four answer options
          */
         function getQuestionContent() {
+            // pass each content generating function the random indices for the answer options and the correct answer
             if (gameMode === "easyMode") {
                 // get question and answer content for easy quiz
-                let questionContent = generateEasyQuestion(questionIndices[1][questionIndex], questionIndices[0][questionIndex]);
+                let questionContent = generateQuestionContent(questionIndices[1][questionIndex], questionIndices[0][questionIndex], gameMode);
+                return questionContent;
+            } else if (gameMode === "mediumMode") {
+                // get question and answer content for medium-difficulty quiz
+                let questionContent = generateQuestionContent(questionIndices[1][questionIndex], questionIndices[0][questionIndex], gameMode);
                 return questionContent;
             } else {
                 alert("Whoops! This game hasn't been created yet");
@@ -449,34 +454,92 @@ function runGame(gameMode) {
 }
 
 /**
- * Generates a question and answer options for the easy version of the quiz.
- * Finds the song title of the correct answer index and creates a question with it,
- * then gets the artist names of the four answer option indices.
+ * Gets question and answer options.
+ * Creates a string with the question (as HTMl) and an array of the answer options, based on what game mode is being played.
  * @param {number} correctAnswerIndex - the index of the correct song answer in songs.json
  * @param {Array} allOptionsArray - an array of the indices for all four answer options
+ * @param {string} gameMode
  * @returns an object containing the quiz question as a string and an array of the four answer options
  */
-function generateEasyQuestion(correctAnswerIndex, allOptionsArray) {
-    // QUESTION
-    // create a variable to store the song that the question will ask about
-    let questionSongName = songsData[correctAnswerIndex].trackName;
-
-    // create the string with the question HTML
-    let question = `What artist on the list performed <span class="song-title">${questionSongName}</span>?`;
-
-    // ANSWER OPTIONS
+function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) {
+    // create a variable to store the quiz question
+    let question;
     // create an empty array to hold the answer options
     let answerOptions = [];
+    
+    // create a variable to store the song that the question will ask about
+    let questionSongName = songsData[correctAnswerIndex].trackName;
+    // create a variable to store the correct song's artist
+    let questionArtistName = songsData[correctAnswerIndex].artistName;
 
-    // get four answer options
-    for (let i = 0; i < 4; i++) {
-        // create a variable to store the artist name at each of the four answer indices
-        let newOption = songsData[allOptionsArray[i]].artistName;
+    /**
+     * Gets the four answer options from songs.json
+     * @param {*} answerType - which piece of data should be retrieved about the song (e.g. artist, album name)
+     */
+    function getFourAnswerValues(answerType) {
+        for (let i = 0; i < 4; i++) {
+            // create a variable to store the option at each of the four answer indices
+            let newOption = songsData[allOptionsArray[i]][answerType];
 
-        // add the new artist name to answerOptions array
-        answerOptions.push(newOption);
+            // add the new option to the answerOptions array
+            answerOptions.push(newOption);
+        }
     }
 
+    /**
+     * Creates question and gets answer options for question about artist
+     */
+    function artistQuestion() {
+        // create the string with the question HTML
+        question = `What <span class="question-type">artist</span> on the list performed <span class="song-title">${questionSongName}</span>?`;
+
+        // get four answer options
+        getFourAnswerValues("artistName");
+    }
+
+    /**
+     * Creates question and gets answer options for question about song release year
+     */
+    function yearQuestion() {
+        // create the string with the question HTML
+        question = `What <span class="question-type">year</span> was the song <span class="song-title">${questionSongName}</span> (as performed by ${questionArtistName}) released?`;
+
+        // get four answer options
+        getFourAnswerValues("albumReleaseYear");
+    }
+
+    /**
+     * Creates question and gets answer options for question about album name
+     */
+    function albumNameQuestion() {
+        // create the string with the question HTML
+        question = `What was the name of the <span class="question-type">album</span> that included <span class="song-title">${questionSongName}</span> (as performed by ${questionArtistName})?`;
+
+        // get four answer options
+        getFourAnswerValues("albumName");
+    }
+
+    // check which game mode is being played and create appropriate questions
+    if (gameMode === "easyMode") {
+        artistQuestion();
+    } else if (gameMode === "mediumMode") {
+        // QUESTION TYPE SELECTION
+        // randomly decide if question should ask about artist, year or album name
+        let questionType = Math.floor(Math.random() * 3);
+
+        // 0 --> question about artist
+        // 1 --> question about song release year
+        // 2 --> question about album name
+        if (questionType === 0) {
+            artistQuestion();
+        } else if (questionType === 1) {
+            yearQuestion();
+        } else if (questionType === 2) {
+            albumNameQuestion();
+        }
+    }
+
+    // function returns an object containing the question (HTMl string) and an array of answer options
     return {
         question: question,
         answerOptions: answerOptions
