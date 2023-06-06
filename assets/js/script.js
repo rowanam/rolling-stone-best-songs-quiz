@@ -243,6 +243,9 @@ function runGame(gameMode) {
     // an array containing two arrays: the answer indices and the correct answer indices
     let questionIndices = generateQuestionIndices();
 
+    // create a variable to store the type of answer that will be created (e.g. artist, album name)
+    let answerType;
+
     /**
      * Gets the question and answer for a quiz question by calling the function for the
      * selected game mode, then displays the quiz content in the document
@@ -284,6 +287,9 @@ function runGame(gameMode) {
             // i + 1 because the option elements start at index 1 in the quizElements array - index 0 is the question element
             quizElements[i + 1].innerHTML = answerOptions[i];
         }
+
+        // UPDATE THE ANSWER TYPE
+        answerType = questionContent.answerType;
     }
 
     // get and display the first question options
@@ -365,10 +371,8 @@ function runGame(gameMode) {
             optionsChosen.push(button.getAttribute("data-chosen"));
         }
 
-        // create the correct answer display HTML based on the game mode
-        if (gameMode === "easyMode") {
-            correctAnswerDisplay.innerHTML = generateEasyCorrectAnswerDisplay(correctAnswerIndexValue);
-        }
+        // create the correct answer display HTML based on the type of question that was asked
+        correctAnswerDisplay.innerHTML = generateCorrectAnswerDisplay(correctAnswerIndexValue, answerType);
 
         // if no options were selected, alert user to select an option
         // if the selected option is the correct one (i.e. if the correct option is the button with a "data-chosen" value of "true"),
@@ -466,6 +470,8 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
     let question;
     // create an empty array to hold the answer options
     let answerOptions = [];
+    // create a variable to store the type of question that is being asked
+    let answerType;
     
     // create a variable to store the song that the question will ask about
     let questionSongName = songsData[correctAnswerIndex].trackName;
@@ -495,6 +501,9 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
 
         // get four answer options
         getFourAnswerValues("artistName");
+
+        // set answerType
+        answerType = ("artistName");
     }
 
     /**
@@ -506,6 +515,9 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
 
         // get four answer options
         getFourAnswerValues("albumReleaseYear");
+
+        // set answerType
+        answerType = ("albumReleaseYear");
     }
 
     /**
@@ -513,10 +525,13 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
      */
     function albumNameQuestion() {
         // create the string with the question HTML
-        question = `What was the name of the <span class="question-type">album</span> that included <span class="song-title">${questionSongName}</span> (as performed by ${questionArtistName})?`;
+        question = `Which <span class="question-type">album</span> included the song <span class="song-title">${questionSongName}</span>?`;
 
         // get four answer options
         getFourAnswerValues("albumName");
+
+        // set answerType
+        answerType = ("albumName");
     }
 
     // check which game mode is being played and create appropriate questions
@@ -542,7 +557,8 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
     // function returns an object containing the question (HTMl string) and an array of answer options
     return {
         question: question,
-        answerOptions: answerOptions
+        answerOptions: answerOptions,
+        answerType: answerType
     };
 }
 
@@ -551,13 +567,27 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
  * @param {number} correctAnswerIndex 
  * @returns correct answer string for HTML display
  */
-function generateEasyCorrectAnswerDisplay(correctAnswerIndex) {
-    // get the song name and artist name of the correct answer
+function generateCorrectAnswerDisplay(correctAnswerIndex, answerType) {
+    // create a variable to store the correct answer
+    let correctAnswer;
+
+    // get the song name of the correct answer
     let correctSongName = songsData[correctAnswerIndex].trackName;
+    // get the artist name of the correct answer
     let correctSongArtist = songsData[correctAnswerIndex].artistName;
+    // get the release year of the correct answer
+    let correctReleaseYear = songsData[correctAnswerIndex].albumReleaseYear;
+    // get the album name of the correct asnwer
+    let correctAlbumName = songsData[correctAnswerIndex].albumName;
 
     // create the HTML content to display to the correct answer
-    let correctAnswer = `<span class="correct-answer">${correctSongName}</span> was performed by <span class="correct-answer">${correctSongArtist}</span>`;
+    if (answerType === "artistName") {
+        correctAnswer = `<span class="correct-answer">${correctSongName}</span> was performed by <span class="correct-answer">${correctSongArtist}</span>`;
+    } else if (answerType === "albumReleaseYear") {
+        correctAnswer = `<span class="correct-answer">${correctSongName}</span> was released in <span class="correct-answer">${correctReleaseYear}</span>`;
+    } else if (answerType === "albumName") {
+        correctAnswer = `<span class="correct-answer">${correctSongName}</span> was on the album <span class="correct-answer">${correctAlbumName}</span>`;
+    }
 
     return correctAnswer;
 }
