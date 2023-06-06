@@ -19,6 +19,7 @@ h2,
 #content-wrapper, /* the entire page content */
 #game-wrapper, /* the game - all content except for the heading */
 #mode-wrapper, /* the game mode div - question and game mode buttons */
+#start-game-wrapper,
 .score-section, /* each score section - the score label (e.g. "correct") and score underneath */
 #result-wrapper, /* the result div */
 #correct-answer-wrapper {
@@ -64,6 +65,13 @@ h1 {
 
 #game-wrapper {
     width: 60%;
+}
+
+/* START GAME */
+
+#select-mode-alert {
+    color: green;
+    display: none;
 }
 
 /* ACTIVE GAME WRAPPER */

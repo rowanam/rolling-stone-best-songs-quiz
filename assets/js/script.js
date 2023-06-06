@@ -25,7 +25,8 @@ function resetModeButtons() {
 }
 
 /**
- * Resets all mode buttons, then sets "data-chosen" to "true" and applies styles to the clicked button
+ * Resets all mode buttons, then sets "data-chosen" to "true" and applies styles to the clicked button.
+ * Hides an alert text box that tells the user to choose a game mode.
  */
 function modeButtonChosen() {
     // reset "data-chosen" value and styles for all mode buttons
@@ -41,6 +42,10 @@ function modeButtonChosen() {
             button.style.backgroundColor = "rgb(238, 29, 37)";
         }
     }
+
+    // hide text to alert user that no mode button was chosen
+    let selectModeAlert = document.getElementById("select-mode-alert");
+    selectModeAlert.style.display = "none";
 }
 
 // add "click" event listeners to the mode buttons and pass the above function as event handler
@@ -185,7 +190,8 @@ function startGame() {
 
     // check which game mode was selected. if none, alert the user; if one chosen, run that game
     if (easyModeChosen === "false" && mediumModeChosen === "false" && challengingModeChosen === "false") {
-        alert("Whoops! Choose a game mode to begin.");
+        let selectModeAlert = document.getElementById("select-mode-alert");
+        selectModeAlert.style.display = "initial";
     } else {
         gameStartChangeDisplay();
         if (easyModeChosen === "true") {
