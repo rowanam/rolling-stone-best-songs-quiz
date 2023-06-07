@@ -256,22 +256,9 @@ function runGame(gameMode) {
          * @returns an object containing the question as a string and an array of four answer options
          */
         function getQuestionContent() {
+            // pass the content generating function the random indices for the answer options and the correct answer, and the game mode
             let questionContent = generateQuestionContent(questionIndices[1][questionIndex], questionIndices[0][questionIndex], gameMode);
             return questionContent;
-            // pass each content generating function the random indices for the answer options and the correct answer
-            /*
-            if (gameMode === "easyMode") {
-                // get question and answer content for easy quiz
-                let questionContent = generateQuestionContent(questionIndices[1][questionIndex], questionIndices[0][questionIndex], gameMode);
-                return questionContent;
-            } else if (gameMode === "mediumMode") {
-                // get question and answer content for medium-difficulty quiz
-                let questionContent = generateQuestionContent(questionIndices[1][questionIndex], questionIndices[0][questionIndex], gameMode);
-                return questionContent;
-            } else {
-                alert("Whoops! This game hasn't been created yet");
-            }
-            */
         }
 
         // store the output of the getQuestionContent function in a variable
