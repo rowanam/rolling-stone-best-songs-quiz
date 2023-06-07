@@ -643,6 +643,20 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
         answerType = "rank";
     }
 
+    function songLengthQuestion() {
+        question = `How <span class="question-type">long</span> is ${questionSongNameHTML}?`;
+        getFourAnswerValues("trackDurationMS");
+        let convertedAnswerOptions = [];
+        for (let answerOption of answerOptions) {
+            let convertedToSecondsAnswerOption = answerOption / 1000;
+            let minutesOfAnswer = Math.floor(convertedToSecondsAnswerOption / 60);
+            let secondsOfAnswer = Math.floor(convertedToSecondsAnswerOption - minutesOfAnswer * 60);
+            let convertedAnswerOption = `${minutesOfAnswer} mins ${secondsOfAnswer} s`;
+            convertedAnswerOptions.push(convertedAnswerOption);
+        }
+        answerOptions = convertedAnswerOptions;
+    }
+
     /**
      * Calls a question-creating function based on the question type number that gets passed
      * @param {number} passedQuestionType - the number corresponding to a question type
@@ -652,7 +666,7 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
         // 1 --> question about song release year
         // 2 --> question about album name
         // 3 --> question about rank bracket
-        // 4 --> question about artist's genres
+        // 4 --> question about song length
         // 5 --> question about highest tempo
         if (passedQuestionType === 0) {
             artistQuestion();
@@ -662,6 +676,8 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
             albumNameQuestion();
         } else if (passedQuestionType === 3) {
             rankBracketQuestion();
+        } else if (passedQuestionType === 4) {
+            songLengthQuestion();
         } else {
             alert("Error. Question type not created yet");
         }
@@ -679,7 +695,7 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
         questionType = Math.floor(Math.random() * 3);
     } else if (gameMode === "challengingMode") {
         // randomly decide which category should be asked about (all categories for challenging)
-        questionType = Math.floor(Math.random() * 4);
+        questionType = Math.floor(Math.random() * 5);
     }
 
     // create question content based on which question type was randomly selected
