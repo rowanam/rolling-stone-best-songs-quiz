@@ -614,33 +614,56 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
         answerType = "albumName";
     }
 
+    /**
+     * Creates question and gets answer options for question about song rank bracket
+     */
     function rankBracketQuestion() {
         question = `What is the <span class="question-type">rank</span> of ${questionSongNameHTML} on the list?`;
         getFourAnswerValuesRankBrackets();
         answerType = "rank";
     }
 
-    // check which game mode is being played and create appropriate questions
-    if (gameMode === "easyMode") {
-        artistQuestion();
-    } else if (gameMode === "mediumMode") {
-        // QUESTION TYPE SELECTION
-        // randomly decide if question should ask about artist, year or album name
-        let questionType = Math.floor(Math.random() * 3);
-
+    /**
+     * Calls a question-creating function based on the question type number that gets passed
+     * @param {number} passedQuestionType - the number corresponding to a question type
+     */
+    function createQuestionContent(passedQuestionType) {
         // 0 --> question about artist
         // 1 --> question about song release year
         // 2 --> question about album name
-        if (questionType === 0) {
+        // 3 --> question about rank bracket
+        // 4 --> question about highest tempo
+        // 5 --> question about artist's genres
+        if (passedQuestionType === 0) {
             artistQuestion();
-        } else if (questionType === 1) {
+        } else if (passedQuestionType === 1) {
             yearQuestion();
-        } else if (questionType === 2) {
+        } else if (passedQuestionType === 2) {
             albumNameQuestion();
+        } else if (passedQuestionType === 3) {
+            rankBracketQuestion();
+        } else {
+            alert("Error. Question type not created yet");
         }
-    } else if (gameMode === "challengingMode") {
-        rankBracketQuestion();
     }
+
+    // create a variable to store the number corresponding to the question type
+    let questionType;
+
+    // check which game mode is being played and randomly generate numbers to determine which question type will be asked
+    if (gameMode === "easyMode") {
+        // for easy quiz, only artists will be asked about
+        questionType = 0;
+    } else if (gameMode === "mediumMode") {
+        // randomly decide which category should be asked about (first three categories for medium)
+        questionType = Math.floor(Math.random() * 3);
+    } else if (gameMode === "challengingMode") {
+        // randomly decide which category should be asked about (all categories for challenging)
+        questionType = Math.floor(Math.random() * 6);
+    }
+
+    // create question content based on which question type was randomly selected
+    createQuestionContent(questionType);
 
     // function returns an object containing the question (HTMl string) and an array of answer options
     return {
