@@ -345,12 +345,9 @@ function runGame(gameMode) {
     let correctCount = 0;
 
     /**
-     * This function will check if the answer selected was correct (called when the user clicks submit)
+     * This function will check if the answer selected was correct
      */
-    function checkAnswer() {
-        // get the index of the correct answer to the question
-        // pulled from questionIndices, second array (the array of correct answers), then the array of the current question number
-        let correctAnswerIndexValue = questionIndices[1][currentQuestionIndex];
+    function checkAnswer(correctAnswerIndexValue) {
         // then, find the position of that index value in the first array (the array of answer options), and the array of the current question number within that
         let correctAnswerArrayPosition = questionIndices[0][currentQuestionIndex].indexOf(correctAnswerIndexValue);
 
@@ -405,8 +402,28 @@ function runGame(gameMode) {
         }
     }
 
+    function determineCorrectAnswer() {
+        // create a variable to store the index (in songs.json) of the correct answer
+        let correctAnswerIndexValue;
+        
+        /* Some question types will have correct answers determined by the random generation in the generateQuestionIndices function;
+        for others, the question will compare a feature of each of the songs to each other, so the correct answer will be determined by which songs are compared.
+        Broadly, there are two types of questions: 
+        a) This THING (either a song or an artist) has a PROPERTY (e.g. album name, rank) of which of the following?
+        b) Which of the following songs has the MOST OF THIS PROPERTY (e.g. tempo) */
+        if (questionType === 0 || questionType === 1 || questionType === 2 || questionType === 3 || questionType === 4) {
+            // pulled from questionIndices, second array (the array of correct answers), then the array of the current question number
+            correctAnswerIndexValue = questionIndices[1][currentQuestionIndex];
+        } else if (questionType === 5) {
+            // add code to determine correct answer here
+        }
+
+        // check and display whether the user-selected answer was correct
+        checkAnswer(correctAnswerIndexValue);
+    }
+
     // add event listener to submit button to trigger answer checking when clicked
-    submitAnswerButton.addEventListener("click", checkAnswer);
+    submitAnswerButton.addEventListener("click", determineCorrectAnswer);
 
     /**
      * Resets the quiz display
@@ -635,8 +652,8 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
         // 1 --> question about song release year
         // 2 --> question about album name
         // 3 --> question about rank bracket
-        // 4 --> question about highest tempo
-        // 5 --> question about artist's genres
+        // 4 --> question about artist's genres
+        // 5 --> question about highest tempo
         if (passedQuestionType === 0) {
             artistQuestion();
         } else if (passedQuestionType === 1) {
