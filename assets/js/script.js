@@ -243,6 +243,8 @@ function runGame(gameMode) {
     // an array containing two arrays: the answer indices and the correct answer indices
     let questionIndices = generateQuestionIndices();
 
+    // create a variable to store the type of question that was asked (e.g. artist, rank bracket, highest tempo)
+    let questionType;
     // create a variable to store the type of answer that will be created (e.g. artist, album name)
     let answerType;
 
@@ -279,7 +281,8 @@ function runGame(gameMode) {
             quizElements[i + 1].innerHTML = answerOptions[i];
         }
 
-        // UPDATE THE ANSWER TYPE
+        // UPDATE THE QUESTION AND ANSWER TYPES
+        questionType = questionContent.questionType;
         answerType = questionContent.answerType;
     }
 
@@ -659,16 +662,17 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
         questionType = Math.floor(Math.random() * 3);
     } else if (gameMode === "challengingMode") {
         // randomly decide which category should be asked about (all categories for challenging)
-        questionType = Math.floor(Math.random() * 6);
+        questionType = Math.floor(Math.random() * 4);
     }
 
     // create question content based on which question type was randomly selected
     createQuestionContent(questionType);
 
-    // function returns an object containing the question (HTMl string) and an array of answer options
+    // returns an object containing the question (HTMl string), an array of answer options, and the question and answer types
     return {
         question: question,
         answerOptions: answerOptions,
+        questionType: questionType,
         answerType: answerType
     };
 }
