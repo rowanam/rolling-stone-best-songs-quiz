@@ -54,12 +54,10 @@ for (let button of modeButtons) {
 }
 
 /**
- * Generate indices for the correct and incorrect answers for each question.
- * The correct answers don't repeat, 
- * and each question will have 3 more incorrect answers that don't repeat
- * @returns an array containing the answerIndices array and the correctIndices array
+ * Generate a non-repeating array of the indices for the song that each question will be about.
+ * @returns an array containing the song indices for each question
  */
-function generateQuestionIndices() {
+function generateQuizSongIndices() {
     // each quiz round has 15 questions
     let numberOfQuestions = 15;
 
@@ -81,79 +79,17 @@ function generateQuestionIndices() {
         }
     }
 
-    /**
-     * Takes an array and a number as an argument and generates a random number between 0 and 500.
-     * If that number is not already in the passed array, and also not the same as the num, adds it to the array; 
-     * if the number is the same as num or already in the array, generates a new one
-    */
-    function addNewRandomIndexNotX(array, num) {
-        // generate a random number between 0 (inclusive) and 500 (exclusive) - 500 being the number of songs
-        // on the list to be randomly pulled from
-        let randomIndex = Math.floor(Math.random() * 500);
-
-        // check if generated index already in array or equal to num
-        // if so, generate a new index until one has been found that isn't in the array, if not, add index to array
-        if (array.includes(randomIndex) || randomIndex === num) {
-            addNewRandomIndex(array, num);
-        } else {
-            array.push(randomIndex);
-        }
-    }
-
-
     // GENERATE CORRECT ANSWER INDICES
 
     // create an empty array that will hold the randomly generated list of indices of the correct answers
-    let correctIndices = [];
+    let quizSongIndices = [];
     
     // add random numbers to the array until the array has enough correct answers for the user-defined number of questions
-    while (correctIndices.length < numberOfQuestions) {
-        addNewRandomIndex(correctIndices);
+    while (quizSongIndices.length < numberOfQuestions) {
+        addNewRandomIndex(quizSongIndices);
     }
 
-
-    // GENERATE INCORRECT ANSWER INDICES
-
-    // create an empty array to hold the indices for the incorrect answers
-    let incorrectIndices = [];
-
-    // for each question, create an array of 3 random incides
-    for (let i = 0; i < numberOfQuestions; i++) {
-        // create an empty array for each question
-        let newIndicesArray = [];
-
-        for (let j = 0; j < 3; j++) {
-            addNewRandomIndexNotX(newIndicesArray, correctIndices[i]);
-        }
-
-        incorrectIndices.push(newIndicesArray);
-    }
-
-
-    // GENERATE FULL ANSWER INDEX ARRAYS
-
-    // create an empty array to hold all answer indices
-    let answerIndices = [];
-
-    // randomly splice the correct anwer indices into an incorrect answer array, then add the new array to answerIndices
-    for (let i = 0; i < numberOfQuestions; i++) {
-        // create an array that contains the incorrect answers for a question
-        let newAnswerIndices = incorrectIndices[i];
-
-        // generate a random position in the newAnswerIndices array
-        let position = Math.floor(Math.random() * 4);
-
-        // add the correct answer index to the newAnswerIndices array at the random position
-        newAnswerIndices.splice(position, 0, correctIndices[i]);
-
-        // add the complete newAnswerIndices array to answerIndices
-        answerIndices.push(newAnswerIndices);
-    }
-
-
-    let output = [answerIndices, correctIndices];
-
-    return output;
+    return quizSongIndices;
 }
 
 /**
@@ -239,32 +175,24 @@ function runGame(gameMode) {
     // get an array with the HTML elements to be changed. first is the quiz question element, then the four quiz option elements
     let quizElements = getQuizHTMLElements();
 
-    // get the indices for all of the quiz answers
-    // an array containing two arrays: the answer indices and the correct answer indices
-    let questionIndices = generateQuestionIndices();
+    // get the indices for the correct quiz answers
+    let quizSongIndices = generateQuizSongIndices();
 
     // create a variable to store the type of question that was asked (e.g. artist, rank bracket, highest tempo)
     let questionType;
     // create a variable to store the type of answer that will be created (e.g. artist, album name)
     let answerType;
+    
+    // create a variable to store the question content each time it is generated (for use later in the function)
+    let questionContent;
 
     /**
-     * Gets the question and answer for a quiz question by calling the function for the
+     * Gets the question and answers for a quiz question by calling the function for the
      * selected game mode, then displays the quiz content in the document
      */
     function generateQuestion(questionIndex) {
-        /**
-         * Gets question content based on which game mode was selected
-         * @returns an object containing the question as a string and an array of four answer options
-         */
-        function getQuestionContent() {
-            // pass the content generating function the random indices for the answer options and the correct answer, and the game mode
-            let questionContent = generateQuestionContent(questionIndices[1][questionIndex], questionIndices[0][questionIndex], gameMode);
-            return questionContent;
-        }
-
-        // store the output of the getQuestionContent function in a variable
-        let questionContent = getQuestionContent();
+        // generate question content for the current question
+        questionContent = generateQuestionContent(quizSongIndices[questionIndex], gameMode);
 
         // DISPLAY QUESTION
         // create a variable to store the HTML element where the quiz question will go
@@ -348,8 +276,12 @@ function runGame(gameMode) {
      * This function will check if the answer selected was correct
      */
     function checkAnswer(correctAnswerIndexValue) {
-        // then, find the position of that index value in the first array (the array of answer options), and the array of the current question number within that
-        let correctAnswerArrayPosition = questionIndices[0][currentQuestionIndex].indexOf(correctAnswerIndexValue);
+        // store the array of answer options and the correct answer for the current question
+        let answerOptionsArray = questionContent.answerOptions;
+        let correctAnswerValue = songsData[correctAnswerIndexValue][answerType];
+
+        // then, find the position of the correct value in the options array
+        let correctAnswerArrayPosition = answerOptionsArray.indexOf(correctAnswerValue);
 
         // store the button with the correct answer
         let correctOptionButton = optionButtons[correctAnswerArrayPosition];
@@ -402,6 +334,9 @@ function runGame(gameMode) {
         }
     }
 
+    /**
+     * Defines the correct answer song index based on the question type, then calls function to check whether user selected correct answer
+     */
     function determineCorrectAnswer() {
         // create a variable to store the index (in songs.json) of the correct answer
         let correctAnswerIndexValue;
@@ -413,7 +348,7 @@ function runGame(gameMode) {
         b) Which of the following songs has the MOST OF THIS PROPERTY (e.g. tempo) */
         if (questionType === 0 || questionType === 1 || questionType === 2 || questionType === 3 || questionType === 4) {
             // pulled from questionIndices, second array (the array of correct answers), then the array of the current question number
-            correctAnswerIndexValue = questionIndices[1][currentQuestionIndex];
+            correctAnswerIndexValue = quizSongIndices[currentQuestionIndex];
         } else if (questionType === 5) {
             // get current question answer options
             let thisQuestionAnswerOptions = questionIndices[0][currentQuestionIndex];
@@ -505,7 +440,7 @@ function convertDurationToReadable(ms) {
  * @param {string} gameMode
  * @returns an object containing the quiz question as a string and an array of the four answer options
  */
-function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) {
+function generateQuestionContent(correctAnswerIndex, gameMode) {
     // create a variable to store the quiz question
     let question;
     // create an empty array to hold the answer options
@@ -519,17 +454,59 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
     let questionArtistName = songsData[correctAnswerIndex].artistName;
 
     /**
-     * Gets the four answer options from songs.json
-     * @param {*} answerType - which piece of data should be retrieved about the song (e.g. artist, album name)
+     * Creates four answer options by generating three random answers that are not the same as the correct answer
+     * @param {string} answerType - which piece of data should be retrieved about the song (e.g. artist, album name)
+     * @returns an array with four answer options
      */
-    function getFourAnswerValues(answerType) {
-        for (let i = 0; i < 4; i++) {
-            // create a variable to store the option at each of the four answer indices
-            let newOption = songsData[allOptionsArray[i]][answerType];
+    function generateFourAnswerValues(answerType) {
+        /**
+         * Takes an array and a number as an argument and generates a random number between 0 and 500.
+         * If that number is not already in the passed array, and also not the same as the num, adds it to the array; 
+         * if the number is the same as num or already in the array, generates a new one
+        */
+        function addNewRandomIndexNotX(array, answerType, value) {
+            /* generate a random number between 0 (inclusive) and 500 (exclusive) - 500 being the number of songs
+            on the list to be randomly pulled from */
+            let randomIndex = Math.floor(Math.random() * 500);
+            let randomAnswer = songsData[randomIndex][answerType];
 
-            // add the new option to the answerOptions array
-            answerOptions.push(newOption);
+            // check if generated answer already in array or equal to value
+            // if so, generate a new answer until one has been found that isn't in the array; if not, add it to array
+            if (array.includes(randomAnswer) || randomAnswer === value) {
+                addNewRandomIndexNotX(array, answerType, value);
+            } else {
+                array.push(randomAnswer);
+            }
         }
+
+        // get the value of the correct answer
+        let correctAnswer = songsData[correctAnswerIndex][answerType];
+
+
+        // GENERATE INCORRECT ANSWERS
+
+        // create an empty array to hold the incorrect answers
+        let incorrectAnswers = [];
+
+        // for each question, create 3 random incorrect answers and add them to incorrectAnswers array
+        for (let i = 0; i < 3; i++) {
+            addNewRandomIndexNotX(incorrectAnswers, answerType, correctAnswer);
+        }
+
+
+        // GENERATE FULL ANSWER OPTIONS ARRAY
+
+        // create an array that contains all of the incorrect answers options
+        let allOptionsArray = incorrectAnswers;
+
+        // generate a random position in the array
+        let position = Math.floor(Math.random() * 4);
+
+        // add the correct answer to the array at the random position
+        allOptionsArray.splice(position, 0, correctAnswer);
+
+        // set answerOptions equal to allOptionsArray
+        answerOptions = allOptionsArray;
     }
 
     /**
@@ -629,7 +606,7 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
         question = `What <span class="question-type">artist</span> on the list performed ${questionSongNameHTML}?`;
 
         // get four answer options
-        getFourAnswerValues("artistName");
+        generateFourAnswerValues("artistName");
 
         // set answerType
         answerType = "artistName";
@@ -643,7 +620,7 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
         question = `What <span class="question-type">year</span> was the song ${questionSongNameHTML} (as performed by ${questionArtistName}) released?`;
 
         // get four answer options
-        getFourAnswerValues("albumReleaseYear");
+        generateFourAnswerValues("albumReleaseYear");
 
         // set answerType
         answerType = "albumReleaseYear";
@@ -657,7 +634,7 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
         question = `Which <span class="question-type">album</span> included the song ${questionSongNameHTML}?`;
 
         // get four answer options
-        getFourAnswerValues("albumName");
+        generateFourAnswerValues("albumName");
 
         // set answerType
         answerType = "albumName";
@@ -682,7 +659,7 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
         question = `How <span class="question-type">long</span> is ${questionSongNameHTML}?`;
 
         // get four answer options
-        getFourAnswerValues("trackDurationMS");
+        generateFourAnswerValues("trackDurationMS");
         // convert ms values to readable song lengths
         let convertedAnswerOptions = [];
         for (let answerOption of answerOptions) {
@@ -700,7 +677,7 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
         question = `Which song is the <span class="question-type">fastest</span>?`;
 
         // get four answer options
-        getFourAnswerValues("trackName");
+        generateFourAnswerValues("trackName");
 
         // set answerType
         answerType = "trackName";
@@ -766,7 +743,7 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
  */
 function generateCorrectAnswerDisplay(correctAnswerIndex, questionType, answerType) {
     // create a variable to store the correct answer string
-    let correctAnswer;
+    let correctAnswerDisplayString;
 
     // get the song name of the correct answer
     let correctSongName = songsData[correctAnswerIndex].trackName;
@@ -788,22 +765,26 @@ function generateCorrectAnswerDisplay(correctAnswerIndex, questionType, answerTy
 
     // create the HTML content to display to the correct answer
     if (answerType === "artistName") {
-        correctAnswer = `${correctSongNameHTML} was performed by <span class="correct-answer">${correctSongArtist}</span>`;
+        correctAnswerDisplayString = `${correctSongNameHTML} was performed by <span class="correct-answer">${correctSongArtist}</span>`;
     } else if (answerType === "albumReleaseYear") {
-        correctAnswer = `${correctSongNameHTML} was released in <span class="correct-answer">${correctReleaseYear}</span>`;
+        correctAnswerDisplayString = `${correctSongNameHTML} was released in <span class="correct-answer">${correctReleaseYear}</span>`;
     } else if (answerType === "albumName") {
-        correctAnswer = `${correctSongNameHTML} was on the album <span class="correct-answer">${correctAlbumName}</span>`;
+        correctAnswerDisplayString = `${correctSongNameHTML} was on the album <span class="correct-answer">${correctAlbumName}</span>`;
     } else if (answerType === "rank") {
-        correctAnswer = `${correctSongNameHTML} was placed at rank <span class="correct-answer">${correctRank}</span>`;
+        correctAnswerDisplayString = `${correctSongNameHTML} was placed at rank <span class="correct-answer">${correctRank}</span>`;
     } else if (answerType === "duration") {
-        correctAnswer = `${correctSongNameHTML} is <span class="correct-answer">${correctDuration}</span> long`;
+        correctAnswerDisplayString = `${correctSongNameHTML} is <span class="correct-answer">${correctDuration}</span> long`;
     } else if (questionType === 5) {
-        correctAnswer = `The fastest song is ${correctSongNameHTML} at <span class="correct-answer">${correctTempo} bpm</span>`;
+        correctAnswerDisplayString = `The fastest song is ${correctSongNameHTML} at <span class="correct-answer">${correctTempo} bpm</span>`;
     }
 
-    return correctAnswer;
+    return correctAnswerDisplayString;
 }
 
+/**
+ * When game finished, changes display to end page
+ * @param {number} correctCount 
+ */
 function finishGame(correctCount) {
     // hide quiz
     let activeGameWrapper = document.getElementById("active-game-wrapper");
@@ -817,6 +798,9 @@ function finishGame(correctCount) {
     resultWrapper.style.display = "flex";
 }
 
+/**
+ * Reloads the page
+ */
 function resetPage() {
     location.reload();
 }
