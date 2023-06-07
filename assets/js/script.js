@@ -415,7 +415,22 @@ function runGame(gameMode) {
             // pulled from questionIndices, second array (the array of correct answers), then the array of the current question number
             correctAnswerIndexValue = questionIndices[1][currentQuestionIndex];
         } else if (questionType === 5) {
-            // add code to determine correct answer here
+            // get current question answer options
+            let thisQuestionAnswerOptions = questionIndices[0][currentQuestionIndex];
+
+            // get the tempos of the answer options
+            let tempos = [];
+            for (let option of thisQuestionAnswerOptions) {
+                let tempo = songsData[option].trackTempo;
+                tempos.push(tempo);
+            }
+
+            // find the highest tempo
+            let maxTempo = Math.max(...tempos);
+
+            // get the song with the highest tempo from the options and update correctAnswerIndexValue
+            let maxArrayPosition = tempos.indexOf(maxTempo);
+            correctAnswerIndexValue = questionIndices[0][currentQuestionIndex][maxArrayPosition];
         }
 
         // check and display whether the user-selected answer was correct
@@ -680,6 +695,17 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
         answerType = "duration";
     }
 
+    function highestTempoQuestion() {
+        // create the string with the question HTML
+        question = `Which song is the <span class="question-type">fastest</span>?`;
+
+        // get four answer options
+        getFourAnswerValues("trackName");
+
+        // set answerType
+        answerType = "trackName";
+    }
+
     /**
      * Calls a question-creating function based on the question type number that gets passed
      * @param {number} passedQuestionType - the number corresponding to a question type
@@ -701,8 +727,8 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
             rankBracketQuestion();
         } else if (passedQuestionType === 4) {
             songLengthQuestion();
-        } else {
-            alert("Error. Question type not created yet");
+        } else if (passedQuestionType === 5) {
+            highestTempoQuestion();
         }
     }
 
@@ -718,7 +744,7 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
         questionType = Math.floor(Math.random() * 3);
     } else if (gameMode === "challengingMode") {
         // randomly decide which category should be asked about (all categories for challenging)
-        questionType = Math.floor(Math.random() * 5);
+        questionType = Math.floor(Math.random() * 6);
     }
 
     // create question content based on which question type was randomly selected
