@@ -469,6 +469,20 @@ function runGame(gameMode) {
 }
 
 /**
+ * Converts song duration ms to a readable format ("x mins and y s")
+ * @param {number} ms - the duration of a song in ms
+ * @returns converted answer as template literal string
+ */
+function convertDurationToReadable(ms) {
+    let convertedToSeconds = ms / 1000;
+    let minutesOfAnswer = Math.floor(convertedToSeconds / 60);
+    let secondsOfAnswer = Math.floor(convertedToSeconds - minutesOfAnswer * 60);
+    let convertedAnswer = `${minutesOfAnswer} mins ${secondsOfAnswer} s`;
+
+    return convertedAnswer;
+}
+
+/**
  * Gets question and answer options.
  * Creates a string with the question (as HTMl) and an array of the answer options, based on what game mode is being played.
  * @param {number} correctAnswerIndex - the index of the correct song answer in songs.json
@@ -638,23 +652,32 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
      * Creates question and gets answer options for question about song rank bracket
      */
     function rankBracketQuestion() {
+        // create the string with the question HTML
         question = `What is the <span class="question-type">rank</span> of ${questionSongNameHTML} on the list?`;
+        
+        // get four answer options
         getFourAnswerValuesRankBrackets();
+
+        // set answerType
         answerType = "rank";
     }
 
     function songLengthQuestion() {
+        // create the string with the question HTML
         question = `How <span class="question-type">long</span> is ${questionSongNameHTML}?`;
+
+        // get four answer options
         getFourAnswerValues("trackDurationMS");
+        // convert ms values to readable song lengths
         let convertedAnswerOptions = [];
         for (let answerOption of answerOptions) {
-            let convertedToSecondsAnswerOption = answerOption / 1000;
-            let minutesOfAnswer = Math.floor(convertedToSecondsAnswerOption / 60);
-            let secondsOfAnswer = Math.floor(convertedToSecondsAnswerOption - minutesOfAnswer * 60);
-            let convertedAnswerOption = `${minutesOfAnswer} mins ${secondsOfAnswer} s`;
+            let convertedAnswerOption = convertDurationToReadable(answerOption);
             convertedAnswerOptions.push(convertedAnswerOption);
         }
         answerOptions = convertedAnswerOptions;
+
+        // set answerType
+        answerType = "duration";
     }
 
     /**
@@ -729,6 +752,9 @@ function generateCorrectAnswerDisplay(correctAnswerIndex, answerType) {
     let correctAlbumName = songsData[correctAnswerIndex].albumName;
     // get the rank of the correct answer
     let correctRank = songsData[correctAnswerIndex].rank;
+    // get the song length of the correct answer
+    let correctDuration = convertDurationToReadable(songsData[correctAnswerIndex].trackDurationMS);
+
 
     let correctSongNameHTMl = `<span class="correct-answer">${correctSongName}</span>`;
 
@@ -741,6 +767,8 @@ function generateCorrectAnswerDisplay(correctAnswerIndex, answerType) {
         correctAnswer = `${correctSongNameHTMl} was on the album <span class="correct-answer">${correctAlbumName}</span>`;
     } else if (answerType === "rank") {
         correctAnswer = `${correctSongNameHTMl} was placed at rank <span class="correct-answer">${correctRank}</span>`;
+    } else if (answerType === "duration") {
+        correctAnswer = `${correctSongNameHTMl} is <span class="correct-answer">${correctDuration}</span> long`;
     }
 
     return correctAnswer;
