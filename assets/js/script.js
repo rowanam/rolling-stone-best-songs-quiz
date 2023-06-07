@@ -699,14 +699,6 @@ function generateCorrectAnswerDisplay(correctAnswerIndex, answerType) {
     return correctAnswer;
 }
 
-function runMediumGame() {
-    console.log("Running medium game");
-}
-
-function runChallengingGame() {
-    console.log("Running challenging game");
-}
-
 function finishGame(correctCount) {
     // hide quiz
     let activeGameWrapper = document.getElementById("active-game-wrapper");
