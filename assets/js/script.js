@@ -363,7 +363,7 @@ function runGame(gameMode) {
         }
 
         // create the correct answer display HTML based on the type of question that was asked
-        correctAnswerDisplay.innerHTML = generateCorrectAnswerDisplay(correctAnswerIndexValue, answerType);
+        correctAnswerDisplay.innerHTML = generateCorrectAnswerDisplay(correctAnswerIndexValue, questionType, answerType);
 
         // if no options were selected, alert user to select an option
         // if the selected option is the correct one (i.e. if the correct option is the button with a "data-chosen" value of "true"),
@@ -764,8 +764,8 @@ function generateQuestionContent(correctAnswerIndex, allOptionsArray, gameMode) 
  * @param {number} correctAnswerIndex 
  * @returns correct answer string for HTML display
  */
-function generateCorrectAnswerDisplay(correctAnswerIndex, answerType) {
-    // create a variable to store the correct answer
+function generateCorrectAnswerDisplay(correctAnswerIndex, questionType, answerType) {
+    // create a variable to store the correct answer string
     let correctAnswer;
 
     // get the song name of the correct answer
@@ -780,21 +780,25 @@ function generateCorrectAnswerDisplay(correctAnswerIndex, answerType) {
     let correctRank = songsData[correctAnswerIndex].rank;
     // get the song length of the correct answer
     let correctDuration = convertDurationToReadable(songsData[correctAnswerIndex].trackDurationMS);
+    // get the tempo of the correct answer
+    let correctTempo = songsData[correctAnswerIndex].trackTempo;
 
 
-    let correctSongNameHTMl = `<span class="correct-answer">${correctSongName}</span>`;
+    let correctSongNameHTML = `<span class="correct-answer">${correctSongName}</span>`;
 
     // create the HTML content to display to the correct answer
     if (answerType === "artistName") {
-        correctAnswer = `${correctSongNameHTMl} was performed by <span class="correct-answer">${correctSongArtist}</span>`;
+        correctAnswer = `${correctSongNameHTML} was performed by <span class="correct-answer">${correctSongArtist}</span>`;
     } else if (answerType === "albumReleaseYear") {
-        correctAnswer = `${correctSongNameHTMl} was released in <span class="correct-answer">${correctReleaseYear}</span>`;
+        correctAnswer = `${correctSongNameHTML} was released in <span class="correct-answer">${correctReleaseYear}</span>`;
     } else if (answerType === "albumName") {
-        correctAnswer = `${correctSongNameHTMl} was on the album <span class="correct-answer">${correctAlbumName}</span>`;
+        correctAnswer = `${correctSongNameHTML} was on the album <span class="correct-answer">${correctAlbumName}</span>`;
     } else if (answerType === "rank") {
-        correctAnswer = `${correctSongNameHTMl} was placed at rank <span class="correct-answer">${correctRank}</span>`;
+        correctAnswer = `${correctSongNameHTML} was placed at rank <span class="correct-answer">${correctRank}</span>`;
     } else if (answerType === "duration") {
-        correctAnswer = `${correctSongNameHTMl} is <span class="correct-answer">${correctDuration}</span> long`;
+        correctAnswer = `${correctSongNameHTML} is <span class="correct-answer">${correctDuration}</span> long`;
+    } else if (questionType === 5) {
+        correctAnswer = `The fastest song is ${correctSongNameHTML} at <span class="correct-answer">${correctTempo} bpm</span>`;
     }
 
     return correctAnswer;
