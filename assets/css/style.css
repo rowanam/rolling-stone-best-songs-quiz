@@ -1,9 +1,24 @@
 /* Google fonts */
-@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poiret+One&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poiret+One&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Oswald&family=Poiret+One&display=swap');
 
 body,
 button {
     font-family: "Poiret One", "Gill Sans", sans-serif;
+}
+
+h1,
+h2,
+#correctness-result,
+#result-score {
+    font-family: Lobster, Times, serif;
+}
+
+.question-type,
+.song-title,
+.quiz-option-answer,
+.correct-answer {
+    font-family: Oswald, "Gill Sans", sans-serif;
 }
 
 body {
@@ -11,16 +26,6 @@ body {
     margin: 0;
     padding: 0;
     background: #3e3e3e url("../images/background.jpg") no-repeat fixed center/cover;
-}
-
-h1,
-h2,
-.question-type,
-.song-title,
-#correctness-result,
-.correct-answer,
-#result-score {
-    font-family: Lobster, Times, serif;
 }
 
 /* any div where items need to be vertically centered */
