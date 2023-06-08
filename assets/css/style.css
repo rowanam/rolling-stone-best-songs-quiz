@@ -61,7 +61,7 @@ header,
 footer {
     display: flex;
     justify-content: center;
-    background-color: rgb(250, 122, 17);
+    background-color: black;
     color: white;
     width: 100%;
 }
@@ -84,6 +84,10 @@ h1 {
 footer {
     height: 50px;
     align-items: center;
+}
+
+footer p {
+    font-weight: 700;
 }
 
 /* CONTENT AND GAME WRAPPER */
