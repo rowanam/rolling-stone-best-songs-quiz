@@ -70,20 +70,21 @@ footer {
 }
 
 #rolling-stone-logo {
-    width: 35vw;
+    width: 320px;
     align-self: center;
 }
 
 h1 {
     display: inline-block;
     margin-left: 20px;
-    font-size: 2.3em;
+    font-size: 2em;
 }
 
 /* CONTENT AND GAME WRAPPER */
 
 #content-wrapper {
-    height: calc(100vh - 170px);
+    /* window height minus header and footer heights */
+    min-height: calc(100vh - 170px);
     background: #3e3e3e url("../images/background.jpg") center/cover no-repeat;
 }
 
@@ -204,4 +205,42 @@ h1 {
 
 #result-wrapper {
     display: none;
+}
+
+/* RESPONSIVENESS */
+
+/* tablet screen sizes */
+@media (max-width: 768px) {
+
+    /* HEADER */
+
+    #rolling-stone-logo {
+        width: 250px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* mobile screen sizes */
+
+@media (max-width: 425px) {
+
+    /* HEADER */
+
+    header {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #rolling-stone-logo {
+        width: 150px;
+    }
+
+    h1 {
+        font-size: 1.4em;
+        text-align: center;
+        margin: 5px 0 0 0;
+    }
 }
