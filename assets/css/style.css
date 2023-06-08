@@ -6,6 +6,11 @@ button {
     font-family: "Poiret One", "Gill Sans", sans-serif;
 }
 
+body {
+    background: #3e3e3e url("../images/background.jpg") center/cover no-repeat;
+    min-height: 100vh;
+}
+
 h1,
 h2,
 .question-type,
@@ -66,6 +71,8 @@ h1 {
 
 #game-wrapper {
     width: 60%;
+    background-color: rgba(255, 255, 255, .8);
+    min-height: 60vh;
 }
 
 /* START GAME */
