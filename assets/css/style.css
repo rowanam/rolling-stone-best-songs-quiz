@@ -221,6 +221,12 @@ h1 {
     h1 {
         font-size: 1.8em;
     }
+
+    /* GAME WRAPPER */
+
+    #game-wrapper {
+        width: 75%;
+    }
 }
 
 /* mobile screen sizes */
@@ -242,5 +248,16 @@ h1 {
         font-size: 1.4em;
         text-align: center;
         margin: 5px 0 0 0;
+    }
+
+    /* INSTRUCTIONS */
+
+    #game-mode-instructions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .game-mode-description {
+        width: 80%;
     }
 }
