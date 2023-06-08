@@ -103,6 +103,10 @@ footer {
     text-align: center;
 }
 
+#welcome-heading {
+    margin-top: 10px;
+}
+
 #game-mode-instructions {
     display: flex;
     width: 100%;
@@ -113,7 +117,19 @@ footer {
     width: 30%;
 }
 
+.game-mode-description-heading {
+    margin-top: 0;
+}
+
+.game-mode-description-content {
+    margin-bottom: 0;
+}
+
 /* START GAME */
+
+#start-quiz-button {
+    margin-top: 25px;
+}
 
 #select-mode-alert {
     color: green;
@@ -274,6 +290,7 @@ footer {
 
     .game-mode-description {
         width: 80%;
+        margin: 15px 0;
     }
 
     /* QUIZ */
