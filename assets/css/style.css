@@ -7,8 +7,9 @@ button {
 }
 
 body {
-    background: #3e3e3e url("../images/background.jpg") center/cover no-repeat;
     min-height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
 h1,
@@ -23,7 +24,7 @@ h2,
 
 /* any div where items need to be vertically centered */
 #content-wrapper, /* the entire page content */
-#game-wrapper, /* the game - all content except for the heading */
+#game-wrapper, /* the game - all content except for the header and footer */
 #mode-wrapper, /* the game mode div - question and game mode buttons */
 #start-game-wrapper,
 .score-section, /* each score section - the score label (e.g. "correct") and score underneath */
@@ -49,11 +50,23 @@ h2,
     color: white;
 }
 
-/* HEADING */
+/* HEADER AND FOOTER */
 
-#heading {
+header,
+footer {
     display: flex;
     justify-content: center;
+    background-color: rgb(250, 122, 17);
+    color: white;
+    width: 100%;
+}
+
+header {
+    height: 150px;
+}
+
+footer {
+    height: 50px;
 }
 
 #rolling-stone-logo {
@@ -67,11 +80,17 @@ h1 {
     font-size: 2.3em;
 }
 
-/* GAME WRAPPER */
+/* CONTENT AND GAME WRAPPER */
+
+#content-wrapper {
+    min-height: calc(100vh - 200px);
+    background: #3e3e3e url("../images/background.jpg") center/cover no-repeat;
+}
 
 #game-wrapper {
     width: 60%;
     background-color: rgba(255, 255, 255, .8);
+    margin: 50px;
     min-height: 60vh;
 }
 
