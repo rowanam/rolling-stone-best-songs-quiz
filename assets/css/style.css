@@ -62,7 +62,7 @@ footer {
 }
 
 header {
-    height: 150px;
+    height: 120px;
 }
 
 footer {
@@ -83,15 +83,32 @@ h1 {
 /* CONTENT AND GAME WRAPPER */
 
 #content-wrapper {
-    min-height: calc(100vh - 200px);
+    height: calc(100vh - 170px);
     background: #3e3e3e url("../images/background.jpg") center/cover no-repeat;
 }
 
 #game-wrapper {
     width: 60%;
     background-color: rgba(255, 255, 255, .8);
-    margin: 50px;
+    margin: 40px;
+    padding: 15px;
     min-height: 60vh;
+}
+
+/* INSTRUCTIONS */
+
+#instructions-wrapper {
+    text-align: center;
+}
+
+#game-mode-instructions {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.game-mode-description {
+    width: 30%;
 }
 
 /* START GAME */

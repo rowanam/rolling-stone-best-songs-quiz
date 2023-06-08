@@ -113,6 +113,7 @@ function startGame() {
         // add the game mode question and the start quiz button to the hide array
         elementsToHide.push(document.getElementById("game-mode-question"));
         elementsToHide.push(document.getElementById("start-quiz-button"));
+        elementsToHide.push(document.getElementById("instructions-wrapper"));
 
         // set display to none for elements to be hidden
         for (let element of elementsToHide) {

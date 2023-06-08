@@ -18,11 +18,37 @@
     </header>
 
     <div id="content-wrapper">
+
         <!-- game wrapper div -->
         <div id="game-wrapper">
+
+            <!-- instructions div -->
+            <div id="instructions-wrapper">
+                <h2 id="welcome-heading">Hey, music lover</h2>
+                <p>How well do you think you know music?</p>
+                <p>In 2021, Rolling Stone magazine released an updated list of the "500 Greatest Songs of All Time". You
+                    might not agree with all of their rankings, but if you pride yourself on your knowledge of music,
+                    you'll definitely know at least a little about many of these songs. So take this quiz and find
+                    out how big of a music fan you truly are...</p>
+                <div id="game-mode-instructions">
+                    <div class="game-mode-description">
+                        <h3>Easy</h3>
+                        <p>Name the artist</p>
+                    </div>
+                    <div class="game-mode-description">
+                        <h3>Medium</h3>
+                        <p>Artist, year or album name</p>
+                    </div>
+                    <div class="game-mode-description">
+                        <h3>Challenging</h3>
+                        <p>Medium plus a few extra challenges</p>
+                    </div>
+                </div>
+            </div>
+
             <!-- game mode div -->
             <div id="mode-wrapper">
-                <p id="game-mode-question">What game mode do you want to play?</p>
+                <p id="game-mode-question">Select a game mode to begin:</p>
                 <div>
                     <button id="easy-mode-button" class="control-button mode-button" data-chosen="false">Easy</button>
                     <button id="medium-mode-button" class="control-button mode-button"
@@ -57,28 +83,32 @@
                                 <img class="vinyl-button-icon" src="assets/images/vinyl-icon.png"
                                     alt="Image of a vinyl record">
                             </button>
-                            <div id="quiz-option-one" class="quiz-option-answer">A quiz answer option will go here (added by JavaScript)</div>
+                            <div id="quiz-option-one" class="quiz-option-answer">A quiz answer option will go here
+                                (added by JavaScript)</div>
                         </div>
                         <div class="quiz-option">
                             <button class="quiz-button" data-chosen="false">
                                 <img class="vinyl-button-icon" src="assets/images/vinyl-icon.png"
                                     alt="Image of a vinyl record">
                             </button>
-                            <div id="quiz-option-two" class="quiz-option-answer">A quiz answer option will go here (added by JavaScript)</div>
+                            <div id="quiz-option-two" class="quiz-option-answer">A quiz answer option will go here
+                                (added by JavaScript)</div>
                         </div>
                         <div class="quiz-option">
                             <button class="quiz-button" data-chosen="false">
                                 <img class="vinyl-button-icon" src="assets/images/vinyl-icon.png"
                                     alt="Image of a vinyl record">
                             </button>
-                            <div id="quiz-option-three" class="quiz-option-answer">A quiz answer option will go here (added by JavaScript)</div>
+                            <div id="quiz-option-three" class="quiz-option-answer">A quiz answer option will go here
+                                (added by JavaScript)</div>
                         </div>
                         <div class="quiz-option">
                             <button class="quiz-button" data-chosen="false">
                                 <img class="vinyl-button-icon" src="assets/images/vinyl-icon.png"
                                     alt="Image of a vinyl record">
                             </button>
-                            <div id="quiz-option-four" class="quiz-option-answer">A quiz answer option will go here (added by JavaScript)</div>
+                            <div id="quiz-option-four" class="quiz-option-answer">A quiz answer option will go here
+                                (added by JavaScript)</div>
                         </div>
                     </div>
                 </div>
@@ -107,7 +137,9 @@
                 </p>
                 <button id="play-again" class="control-button">Play again</button>
             </div>
+
         </div>
+
     </div>
 
     <footer>
