@@ -742,8 +742,7 @@ function generateQuestionContent(correctAnswerIndex, gameMode) {
         questionType = Math.floor(Math.random() * 3);
     } else if (gameMode === "challengingMode") {
         // randomly decide which category should be asked about (all categories for challenging)
-        // questionType = Math.floor(Math.random() * 6);
-        questionType = 4;
+        questionType = Math.floor(Math.random() * 6);
     }
 
     // create question content based on which question type was randomly selected
