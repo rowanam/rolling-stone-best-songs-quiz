@@ -110,10 +110,11 @@ function startGame() {
         // create an empty array to hold the elements that should be hidden
         let elementsToHide = [];
 
-        // add the game mode question and the start quiz button to the hide array
+        // add page elements to the hide array
         elementsToHide.push(document.getElementById("game-mode-question"));
         elementsToHide.push(document.getElementById("start-quiz-button"));
         elementsToHide.push(document.getElementById("instructions-wrapper"));
+        elementsToHide.push(document.getElementById("start-game-wrapper"));
 
         // set display to none for elements to be hidden
         for (let element of elementsToHide) {
@@ -811,12 +812,19 @@ function finishGame(correctCount) {
     let activeGameWrapper = document.getElementById("active-game-wrapper");
     activeGameWrapper.style.display = "";
 
+    // add correct count to display
     let totalCorrect = document.getElementById("total-correct");
     totalCorrect.innerHTML = correctCount;
 
-    // display result
+    // display result div
     let resultWrapper = document.getElementById("result-wrapper");
     resultWrapper.style.display = "flex";
+
+    // center the result div while keeping game mode buttons at the top
+    let gameWrapper = document.getElementById("game-wrapper");
+    gameWrapper.style.display = "grid";
+    gameWrapper.style.gridTemplateColumns = "1fr";
+    gameWrapper.style.gridTemplateRows = "38px 1fr 38px"; // 38px is the height of the game mode buttons; an empty 38px row also added at end for style, to push result div up a little
 }
 
 /**
