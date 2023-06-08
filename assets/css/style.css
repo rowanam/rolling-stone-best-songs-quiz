@@ -10,6 +10,7 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 0;
+    background: #3e3e3e url("../images/background.jpg") no-repeat fixed center/cover;
 }
 
 h1,
@@ -86,7 +87,6 @@ footer {
 #content-wrapper {
     /* window height minus header and footer heights */
     min-height: calc(100vh - 170px);
-    background: #3e3e3e url("../images/background.jpg") center/cover no-repeat;
 }
 
 #game-wrapper {
