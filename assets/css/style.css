@@ -1,5 +1,4 @@
 /* Google fonts */
-/* @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poiret+One&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Oswald&family=Poiret+One&display=swap');
 
 body,
@@ -267,7 +266,6 @@ footer {
 }
 
 /* mobile screen sizes */
-
 @media (max-width: 425px) {
 
     /* HEADER AND FOOTER */
