@@ -21,6 +21,7 @@ function resetModeButtons() {
         // reset styles
         button.style.color = "";
         button.style.backgroundColor = "";
+        button.style.border = "";
     }
 }
 
@@ -39,7 +40,8 @@ function modeButtonChosen() {
     for (let button of modeButtons) {
         if (button.getAttribute("data-chosen") === "true") {
             button.style.color = "white";
-            button.style.backgroundColor = "rgb(238, 29, 37)";
+            button.style.backgroundColor = "#ee1d25";
+            button.style.border = "#ee1d25 1px solid";
         }
     }
 
