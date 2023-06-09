@@ -277,6 +277,17 @@ Friends and family tested the website to check quiz functionality and intuitive 
 
 ## Deployment
 
+The project was deployed using [GitHub Pages](https://pages.github.com/)
+
+The steps to deploy were as follows:
+- Open the repository in GitHub
+- Navigate to Settings
+- Click on Pages
+- The Source should be set to "Deploy from a branch"
+- Under Branch, select "main"
+- Click Save
+- After waiting for the site to load and refreshing the page, the live site is available at the URL provided
+
 ## Attributions
 
 - Rolling Stone logo - [Wikipedia](https://sco.wikipedia.org/wiki/File:Rolling_Stone_logo.svg)
