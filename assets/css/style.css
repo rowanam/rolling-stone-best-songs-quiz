@@ -269,9 +269,8 @@ footer p {
     }
 }
 
-/* mobile screen sizes */
-@media (max-width: 425px) {
-
+/* break point added as header needs to be collapsed sooner than rest of page */
+@media (max-width: 630px) {
     /* HEADER AND FOOTER */
 
     header {
@@ -292,6 +291,10 @@ footer p {
     footer {
         font-size: .8rem;
     }
+}
+
+/* mobile screen sizes */
+@media (max-width: 425px) {
 
     /* INSTRUCTIONS */
 
