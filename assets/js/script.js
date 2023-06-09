@@ -113,36 +113,15 @@ function startGame() {
         let elementsToHide = [];
 
         // add page elements to the hide array
-        elementsToHide.push(document.getElementById("game-mode-question"));
+        elementsToHide.push(document.getElementById("mode-wrapper"));
         elementsToHide.push(document.getElementById("start-quiz-button"));
         elementsToHide.push(document.getElementById("instructions-wrapper"));
         elementsToHide.push(document.getElementById("start-game-wrapper"));
-
-        let gameModeDescriptions = document.getElementsByClassName("game-mode-description");
-        for (let p of gameModeDescriptions) {
-            elementsToHide.push(p);
-        }
 
         // set display to none for elements to be hidden
         for (let element of elementsToHide) {
             element.setAttribute("style", "display: none;");
         }
-
-        // reduce game mode button sizes and reposition
-        let gameModesDivs = document.getElementsByClassName("game-mode");
-        for (let div of gameModesDivs) {
-            div.style.width = "fit-content";
-            div.style.margin = "0 10px";
-        }
-        let modeButtons = document.getElementsByClassName("mode-button");
-        for (let button of modeButtons) {
-            button.style.fontSize = ".9rem";
-            button.style.padding = "8px";
-        }
-        let modeWrapper = document.getElementById("mode-wrapper");
-        modeWrapper.style.width = "100%";
-        let gameModesWrapper = document.getElementById("game-modes-wrapper");
-        gameModesWrapper.style.justifyContent = "center";
 
         // display the quiz
         let activeGameWrapper = document.getElementById("active-game-wrapper");
@@ -483,6 +462,7 @@ function runGame(gameMode) {
         // display submit answer button and hide next question button
         submitAnswerButton.style.display = "initial";
         nextQuestionButton.style.display = "none";
+
     }
 
     /**
@@ -845,9 +825,10 @@ function finishGame(correctCount) {
 
     // center the result div while keeping game mode buttons at the top
     let gameWrapper = document.getElementById("game-wrapper");
-    gameWrapper.style.display = "grid";
-    gameWrapper.style.gridTemplateColumns = "1fr";
-    gameWrapper.style.gridTemplateRows = "38px 1fr 38px"; // 38px is the height of the game mode buttons; an empty 38px row also added at end for style, to push result div up a little
+    gameWrapper.style.display = "flex";
+    gameWrapper.style.justifyContent = "center";
+    gameWrapper.style.height = "30vh";
+    gameWrapper.style.marginTop = "100px";
 }
 
 /**
