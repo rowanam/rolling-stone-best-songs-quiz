@@ -60,7 +60,111 @@ The main theme colors are red and yellow, aligning with colors popular in the th
 
 ## Features
 
+### Header and Footer
+
+The header and footer are simple and provide information about the site and copyright.
+
+#### Header
+
+![page header](documentation/images/header.png)
+
+Provides the site subject
+
+#### Footer
+
+![page footer](documentation/images/footer.png)
+
+Copyright information
+
+### Starting Page
+
+![landing page](documentation/images/landing-page.png)
+
+The landing page has 
+- a greeting heading
+- a short introduction to the songs list and the page
+- information about the categories in each difficulty level
+- buttons to select a game mode and start playing
+
+All buttons turn red when hovered over, and when a game mode is selected that button turns red and the others return to default.
+
+![game start buttons with medium selected](documentation/images/mode-button-selected.png)
+
+If the user tries to start the quiz without selecting a game mode, they will be alerted to make a selection before continuing.
+
+![alert to select game mode](documentation/images/choose-difficulty-alert.png)
+
+### Active Quiz
+
+![quiz display page](documentation/images/quiz.png)
+
+When the user clicks "start quiz" on the landing page, the display changes to reveal the first quiz question.
+
+The game mode buttons with the current game mode highlighted are displayed at the top of the page, followed by an answered count, the quiz questions and options and a "guess" button.
+
+When the user hovers over a vinyl icon button, it spins, and gets bigger when clicked on. The other buttons will return to default size if this happens, and all buttons return to default when the next question is generated.
+
+If the user tries to submit without selecting an option, they will be alerted to choose an answer.
+
+![alert to select an answer option](documentation/images/choose-option-alert.png)
+
+When the user guesses, the "guess" button changes to a "next" button.
+
+If they guessed correctly, the game will tell them this.
+
+![quiz question correct guess display](documentation/images/quiz-correct-guess.png)
+
+If they guessed incorrectly, they will be told this, and the correct answer will be displayed.
+
+![quiz question incorrect guess display](documentation/images/quiz-incorrect-guess.png)
+
+When the user clicks next, a new question is revealed, and the answer count is incremented to inform the user about their progress through the quiz.
+
+![display of number of questions answered](documentation/images/quiz-answered-count.png)
+
+### Game Finished Page
+
+![end of quiz results page](documentation/images/end-page.png)
+
+When the user finishes the game, a results page displays with
+- a congratulatory message
+- the number of correct answers
+- a button to play again, which reloads the page to start again
+
+### Quiz Questions
+
+#### Games Modes
+
+Each mode give different categories of questions:
+- Easy - the artist who performed the song
+- Medium - the artist, album name or release year of the song
+- Challenging - the same categories as medium, as well as the rank bracket of the song, its duration or a comparison question asking which song was the fastest
+
+For the medium and challenging modes, where different categories are possible, a category is randomly selected for each question.
+
+#### Answers
+
+An array of 15 correct answers is randomly generated at the beginning of each quiz round.
+- This means that each round will be different
+- The function checks that a correct answer isn't already in the array so a quiz round won't ask about the same song twice
+
+The incorrect answers for the round are generated for each question, and the function checks that the incorrect answers aren't the same as the correct one or duplicates of each other so that no set of options will have the same answer twice.
+
+The quiz checks whether the user selected the correct answer by either pulling the correct answer from the generated list, or, for the tempo comparison queston, by checking which song of the answer options has the highest tempo and assigning it as the correct answer.
+
 ### Future Features
+
+#### Extreme Mode
+
+Add another difficulty mode to ask more, challenging questions. This provides more entertainment for the user by creating more challenge and variety. It would also be interesting to use more of the data pulled from the list.
+
+#### Correct Answer Extended Information
+
+Display more information about the correct answer - not just the property of the song relevant to the question category, but further information such as album cover, artist, and other data. This would make the quiz more interesting since the user can learn more while playing.
+
+#### Keyboard Input
+
+Allow user to control the quiz with the keyboard by pressing numbers for answer options and "enter" for submit and next.
 
 ## Technologies Used
 
