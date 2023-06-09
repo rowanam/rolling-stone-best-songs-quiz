@@ -145,7 +145,7 @@ When the user finishes the game, a results page displays with
 
 ### Quiz Questions
 
-#### Games Modes
+#### Game modes
 
 Each mode give different categories of questions:
 - Easy - the artist who performed the song
@@ -166,15 +166,15 @@ The quiz checks whether the user selected the correct answer by either pulling t
 
 ### Future Features
 
-#### Extreme Mode
+#### Extreme mode
 
 Add another difficulty mode to ask more, challenging questions. This provides more entertainment for the user by creating more challenge and variety. It would also be interesting to use more of the data pulled from the list.
 
-#### Correct Answer Extended Information
+#### Correct answer extended information
 
 Display more information about the correct answer - not just the property of the song relevant to the question category, but further information such as album cover, artist, and other data. This would make the quiz more interesting since the user can learn more while playing.
 
-#### Keyboard Input
+#### Keyboard input
 
 Allow user to control the quiz with the keyboard by pressing numbers for answer options and "enter" for submit and next.
 
@@ -254,8 +254,8 @@ Currently, the game mode buttons are displayed above the quiz while the game is 
 
 ![JavaScript linter](documentation/images/js-linter.png)
 
-- The script passed through [W3C CSS (Jigsaw) Validator](https://jigsaw.w3.org/css-validator/) with no significant errors
-- There were many warnings, but the majority of these were related to syntax like "let" that are available in ES6
+- The script passed through [JSHint](https://jshint.com/) with no significant errors
+- There were several warnings, but the majority of these were related to syntax like "let" that is available in ES6
 
 ### Lighthouse
 
