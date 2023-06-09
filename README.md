@@ -210,7 +210,21 @@ The approach taken in this project was to add a "data-chosen" attribute to each 
 
 ## Bug Fixes
 
+### Repeated answers
+
+The initial version of the answer generation function ensured that data for the answer options would never be pulled from the same song object, however, if two different songs had the same artist, album name or other property in common it could result in a repeated answer.
+
+This bug was resolved by checking that the answer values weren't repeated for each question, rather than just checking that different song object indices were used.
+
+### Header overflow
+
+At screen widths between standard tablet and mobile devices, the header content overflowed onto the rest of the page. This was fixed by reducing the size at a larger max-width than the rest of the content for mobile responsiveness.
+
 ## Known Bugs and Future Fixes
+
+### Switch game mode
+
+Currently, the game mode buttons are displayed above the quiz while the game is being run but they do not start a new game when clicked on. This is a feature that should be added, or have the buttons removed.
 
 ## Testing
 
