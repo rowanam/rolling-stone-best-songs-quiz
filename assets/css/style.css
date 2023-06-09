@@ -292,6 +292,7 @@ footer p {
 
 /* break point added as header needs to be collapsed sooner than rest of page */
 @media (max-width: 630px) {
+
     /* HEADER AND FOOTER */
 
     header {
@@ -314,10 +315,10 @@ footer p {
     }
 }
 
-/* mobile screen sizes */
-@media (max-width: 425px) {
+/* earlier break point because game mode buttons pushing off edge of page */
+@media (max-width: 570px) {
 
-    /* INSTRUCTIONS */
+    /* GAME MODE */
 
     #game-modes-wrapper {
         flex-direction: column;
@@ -328,6 +329,10 @@ footer p {
         width: 80%;
         margin: 15px 0;
     }
+}
+
+/* mobile screen sizes */
+@media (max-width: 425px) {
 
     /* ACTIVE GAME WRAPPER */
 
