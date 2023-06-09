@@ -275,6 +275,9 @@ function runGame(gameMode) {
     // create an HTMLCollection of the option buttons
     let optionButtons = document.getElementsByClassName("quiz-button");
 
+    // store the HTML element to alert user that they haven't chosen an option
+    let selectOptionAlert = document.getElementById("select-option-alert");
+
     /**
      * Resets the size and "data-chosen" attributes of all quiz option buttons
      */
@@ -303,6 +306,9 @@ function runGame(gameMode) {
 
         // set "data-chosen" to "true" for the selected button
         this.setAttribute("data-chosen", "true");
+
+        // when option button gets chosen, hide "choose option button" alert
+        selectOptionAlert.style.display = "";
     }
 
     // add "click" event listeners to the option buttons and pass the above function as event handler
@@ -346,7 +352,8 @@ function runGame(gameMode) {
         // the user will be alerted that they were correct
         // if not, they will be alerted that they were wrong
         if (optionsChosen[0] === "false" && optionsChosen[1] === "false" && optionsChosen[2] === "false"  && optionsChosen[3] === "false") {
-            alert("Whoops! Choose an option.");
+            // display alert if no options chosen when user presses submit
+            selectOptionAlert.style.display = "block";
         } else if (correctOptionButton.getAttribute("data-chosen") === "true") {
             // add 1 to correct guesses count if answer correct
             correctCount++;

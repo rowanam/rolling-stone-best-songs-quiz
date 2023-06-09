@@ -223,6 +223,14 @@ footer p {
     display: none;
 }
 
+/* SELECT OPTION ALERT */
+
+#select-option-alert {
+    color: green;
+    text-align: center;
+    display: none;
+}
+
 /* CORRECT ANSWER */
 
 #correct-answer-wrapper {
