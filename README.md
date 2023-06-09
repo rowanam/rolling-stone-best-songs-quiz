@@ -220,6 +220,16 @@ This bug was resolved by checking that the answer values weren't repeated for ea
 
 At screen widths between standard tablet and mobile devices, the header content overflowed onto the rest of the page. This was fixed by reducing the size at a larger max-width than the rest of the content for mobile responsiveness.
 
+### Accessibility
+
+The header and footer background color was changed from orange to black as the foreground-background contract was not high enough.
+
+Additionally, aria-labelledby attributes were added to the answer option buttons, as these were previously not connected to the answer content and would likely have posed an accessibility barrier.
+
+### Performance
+
+The background image was reduced in size after initial Lighthouse testing, which significantly improved performance and loading times.
+
 ## Known Bugs and Future Fixes
 
 ### Switch game mode
@@ -230,15 +240,40 @@ Currently, the game mode buttons are displayed above the quiz while the game is 
 
 ### HTML Validator
 
+![HTML validation](documentation/images/html-validation.png)
+
+- The website passed through the official [W3C HTML Validator](https://validator.w3.org/) with no errors
+
 ### CSS Validator
+
+![CSS validation](documentation/images/css-validation.png)
+
+- The stylesheet passed through the official [W3C CSS (Jigsaw) Validator](https://jigsaw.w3.org/css-validator/) with no errors
 
 ### JS Linter
 
+![JavaScript linter](documentation/images/js-linter.png)
+
+- The script passed through [W3C CSS (Jigsaw) Validator](https://jigsaw.w3.org/css-validator/) with no significant errors
+- There were many warnings, but the majority of these were related to syntax like "let" that are available in ES6
+
 ### Lighthouse
+
+![Chrome Lighthouse testing](documentation/images/lighthouse.png)
+
+- The website was run through Chrome [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/) and got high performance and accessibility scores with no significant issues
 
 ### Wave
 
+![Wave accessibility testing](documentation/images/wave-accessibility-validation.png)
+
+- The website was passed through [Wave](https://wave.webaim.org/) to check accessibility, with no errors flagged
+
 ### Personal Use
+
+The developer tested the website for quiz functionality and design layout on Chrome on a laptop and on a mobile phone, as well as approximating other device sizes using Chrome Devtools.
+
+Friends and family tested the website to check quiz functionality and intuitive use.
 
 ## Deployment
 
