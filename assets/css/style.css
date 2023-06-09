@@ -44,10 +44,11 @@ body {
 
 .control-button {
     background-color: transparent;
-    padding: 5px;
+    padding: 8px;
     margin: 5px;
     border: 1px solid;
     border-radius: 3px;
+    font-size: .9rem;
 }
 
 .control-button:hover {
@@ -116,22 +117,22 @@ footer p {
     margin-top: 10px;
 }
 
-#game-mode-instructions {
+/* GAME MODE */
+
+#game-modes-wrapper {
     display: flex;
     width: 100%;
     justify-content: space-around;
 }
 
-.game-mode-description {
+.game-mode {
     width: 30%;
+    text-align: center;
 }
 
-.game-mode-description-heading {
-    margin-top: 0;
-}
-
-.game-mode-description-content {
-    margin-bottom: 0;
+.mode-button {
+    font-size: 1.2rem;
+    padding: 10px;
 }
 
 /* START GAME */

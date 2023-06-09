@@ -36,31 +36,26 @@
                     might not agree with all of their rankings, but if you pride yourself on your knowledge of music,
                     you'll definitely know at least a little about many of these songs. So take this quiz and find
                     out how big of a music fan you truly are...</p>
-                <div id="game-mode-instructions">
-                    <div class="game-mode-description">
-                        <h3 class="game-mode-description-heading">Easy</h3>
-                        <p class="game-mode-description-content">Name the artist</p>
-                    </div>
-                    <div class="game-mode-description">
-                        <h3 class="game-mode-description-heading">Medium</h3>
-                        <p class="game-mode-description-content">Artist, year or album name</p>
-                    </div>
-                    <div class="game-mode-description">
-                        <h3 class="game-mode-description-heading">Challenging</h3>
-                        <p class="game-mode-description-content">Medium plus a few extra challenges</p>
-                    </div>
-                </div>
             </div>
 
             <!-- game mode div -->
             <div id="mode-wrapper">
                 <p id="game-mode-question">Select a game mode to begin:</p>
-                <div>
-                    <button id="easy-mode-button" class="control-button mode-button" data-chosen="false">Easy</button>
+                <div id="game-modes-wrapper">
+                    <div class="game-mode">
+                        <button id="easy-mode-button" class="control-button mode-button" data-chosen="false">Easy</button>
+                        <p class="game-mode-description">Name the artist</p>
+                    </div>
+                    <div class="game-mode">
                     <button id="medium-mode-button" class="control-button mode-button"
                         data-chosen="false">Medium</button>
+                        <p class="game-mode-description">Artist, year or album name</p>
+                    </div>
+                    <div class="game-mode">
                     <button id="challenging-mode-button" class="control-button mode-button"
                         data-chosen="false">Challenging</button>
+                        <p class="game-mode-description">Medium plus a few extra challenges</p>
+                    </div>
                 </div>
             </div>
 

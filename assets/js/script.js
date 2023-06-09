@@ -118,10 +118,31 @@ function startGame() {
         elementsToHide.push(document.getElementById("instructions-wrapper"));
         elementsToHide.push(document.getElementById("start-game-wrapper"));
 
+        let gameModeDescriptions = document.getElementsByClassName("game-mode-description");
+        for (let p of gameModeDescriptions) {
+            elementsToHide.push(p);
+        }
+
         // set display to none for elements to be hidden
         for (let element of elementsToHide) {
             element.setAttribute("style", "display: none;");
         }
+
+        // reduce game mode button sizes and reposition
+        let gameModesDivs = document.getElementsByClassName("game-mode");
+        for (let div of gameModesDivs) {
+            div.style.width = "fit-content";
+            div.style.margin = "0 10px";
+        }
+        let modeButtons = document.getElementsByClassName("mode-button");
+        for (let button of modeButtons) {
+            button.style.fontSize = ".9rem";
+            button.style.padding = "8px";
+        }
+        let modeWrapper = document.getElementById("mode-wrapper");
+        modeWrapper.style.width = "100%";
+        let gameModesWrapper = document.getElementById("game-modes-wrapper");
+        gameModesWrapper.style.justifyContent = "center";
 
         // display the quiz
         let activeGameWrapper = document.getElementById("active-game-wrapper");
