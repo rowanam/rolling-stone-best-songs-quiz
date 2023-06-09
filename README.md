@@ -199,7 +199,7 @@ Allow user to control the quiz with the keyboard by pressing numbers for answer 
 
 ### Generation of answers
 
-Brackets was used to develop a function to generate a list of numbers that wouldn't repeat, and also add three other non-repeating answer options to each question in order to create the question options. These generated numbers between 0 and 500 would correspond to a song object in the data file and allow content to be pulled to create a question.
+[Brackets](https://brackets.io/) was used to develop a function to generate a list of numbers that wouldn't repeat, and also add three other non-repeating answer options to each question in order to create the question options. These generated numbers between 0 and 500 would correspond to a song object in the data file and allow content to be pulled to create a question.
 
 Some of the categories have very similar structures (e.g. artist name and album name), so creating these new question types was straightforward. However, some of the categories, such as rank bracket and fastest song, required extra steps or other approaches to generate and display answers. 
 - For the rank bracket, the correct answer rank needed to be pulled but the answer options displayed as rank brackets, and four different brackets needed to be randomly generated.
@@ -242,9 +242,9 @@ The background image was reduced in size after initial Lighthouse testing, which
 
 ## Known Bugs and Future Fixes
 
-### Switch game mode
+### Switch game mode during quiz
 
-The plan was to have the game mode buttons displayed above the quiz throughout the game, and have the user be able to click on them and switch to a different quiz. They were removed as the code to start a new game wasn't working, but this would be a good feature to reimplement and fix in future.
+The plan was to have the game mode buttons displayed above the quiz throughout the game, and have the user be able to click on them and switch to a different quiz. They were removed as the code to start a new game didn't work, but this would be a good feature to reimplement and fix in future.
 
 ## Testing
 
