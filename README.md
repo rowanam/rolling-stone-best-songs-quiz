@@ -58,6 +58,18 @@ Vinyl record images are used a few times on the site to emphasize the music them
 
 The main theme colors are red and yellow, aligning with colors popular in the theme decades. The shade of red chosen (#ee1d25) was taken from the Rolling Stone magazine logo, for consistency.
 
+## Songs
+
+### Songs List
+
+The songs that are used in this quiz come from Rolling Stone magazine's [The 500 Greatest Songs of All Times](https://www.rollingstone.com/music/music-lists/best-songs-of-all-time-1224767/) list (updated 2021 version).
+
+### Songs Data
+
+The data about the songs, stored in this project in songs.json, was pulled from Spotify by [MPK](https://www.marshallpk.com/#about) (Marshall Krassenstein). The process he used is described in [this article](https://www.marshallpk.com/post/rolling-stone-top-500/). The data he collected is posted on his site for public use, so a big thank you to him for collecting the data and making it public.
+
+The developer of this project converted the data, which was in a CSV document, to a [JSON](https://www.json.org/json-en.html) file, removed some of the data categories and renamed the object properties to align with JavaScript standard syntax by removing dashes and converting the property names to camel case (e.g. artist-name to artistName).
+
 ## Features
 
 ### Header and Footer
