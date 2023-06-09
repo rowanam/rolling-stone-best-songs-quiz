@@ -1,4 +1,4 @@
-# Greatest Songs of All Times Quiz
+# Greatest Songs of All Time Quiz
 
 This website provides a quiz game for music fans who want to test their knowledge of great popular music. The Rolling Stone magazine greatest 500 list was chosen as a well-known and comprehensive list of popular music in order to generate questions to test music enthusiasts.
 
