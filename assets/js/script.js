@@ -333,6 +333,11 @@ function runGame(gameMode) {
      * This function will check if the answer selected was correct
      */
     function checkAnswer(correctAnswerArrayPosition, correctAnswerIndexValue) {
+        // change "next" button to "finish" after last question
+        if (currentQuestionIndex === 14) {
+            nextQuestionButton.innerHTML = "Finish";
+        }
+
         // store the button with the correct answer
         let correctOptionButton = optionButtons[correctAnswerArrayPosition];
 
