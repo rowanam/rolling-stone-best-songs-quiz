@@ -1,10 +1,10 @@
 // load json file song data
 var songsData;
 fetch('./assets/data/songs.json')
-    .then(res => res.json())
+    .then((res) => res.json())
     .then((data) => {
         songsData = data;
-}).catch(err => console.error(err));
+}).catch((err) => console.error(err));
 
 // CODE TO SELECT AND HIGHLIGHT A GAME MODE
 // create an HTMLCollection of the mode buttons
@@ -16,7 +16,7 @@ let modeButtons = document.getElementsByClassName("mode-button");
 function resetModeButtons() {
     for (let button of modeButtons) {
         // set "data-chosen" of all mode buttons to "false"
-        button.setAttribute("data-chosen", "false")
+        button.setAttribute("data-chosen", "false");
 
         // reset styles
         button.style.color = "";
@@ -36,7 +36,7 @@ function modeButtonChosen() {
     this.setAttribute("data-chosen", "true");
 
     // apply highlighting styles to the clicked button
-    for (button of modeButtons) {
+    for (let button of modeButtons) {
         if (button.getAttribute("data-chosen") === "true") {
             button.style.color = "white";
             button.style.backgroundColor = "rgb(238, 29, 37)";
@@ -283,7 +283,7 @@ function runGame(gameMode) {
             vinylIcon.style.height = "50px";
 
             // set "data-chosen" of all option buttons to "false"
-            button.setAttribute("data-chosen", "false")
+            button.setAttribute("data-chosen", "false");
         }
     }
 
