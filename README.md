@@ -39,9 +39,9 @@ The structure of the quiz game content will change, with elements being displaye
 
 The developer created sketches of each stage of the quiz on paper.
 
-The landing page has game background and instructions followed by game mode selection options.
+The landing page has some game background, followed by game mode selection options.
 
-When the quiz is active, the game mode buttons are displayed at the top of the screen. Underneath, the game displays the user's progression through the quiz (the number of questions answered). The quiz displays a question with four answer options, followed by a submit button that changes to a next question button when a guess is submitted. When the user guesses, information about the correct answer is displayed at the bottom.
+When the quiz is active, a bar showing the number of quesions answered is displayed at the top of the screen to show progress. The quiz displays a question with four answer options, followed by a submit button that changes to a next question button when a guess is submitted. When the user guesses, information about the correct answer is displayed at the bottom.
 
 After the quiz is finished, the result is displayed along with a button to play again.
 
@@ -112,7 +112,7 @@ If the user tries to start the quiz without selecting a game mode, they will be 
 
 When the user clicks "start quiz" on the landing page, the display changes to reveal the first quiz question.
 
-The game mode buttons with the current game mode highlighted are displayed at the top of the page, followed by an answered count, the quiz questions and options and a "guess" button.
+An answered count is displayed at the top of the page, followed by the quiz questions and options and a "guess" button.
 
 When the user hovers over a vinyl icon button, it spins, and gets bigger when clicked on. The other buttons will return to default size if this happens, and all buttons return to default when the next question is generated.
 
@@ -130,16 +130,26 @@ If they guessed incorrectly, they will be told this, and the correct answer will
 
 ![quiz question incorrect guess display](documentation/images/quiz-incorrect-guess.png)
 
+The quiz will also display the correct answer even if the user guesses correctly for two question types:
+- rank bracket - if the user gets the rank bracket correct, they might still want to know the exact rank, so this will be displayed
+- highest tempo - will display the tempo of the correct answer even if user is correct about which song is the fastest
+
+![quiz question correct guess displaying correct answer](documentation/images/quiz-correct-guess-answer-display.png)
+
 When the user clicks next, a new question is revealed, and the answer count is incremented to inform the user about their progress through the quiz.
 
 ![display of number of questions answered](documentation/images/quiz-answered-count.png)
+
+The "next" button turns into a "finish" button after the last question.
+
+![finish button at end of game](documentation/images/finish-button.png)
 
 ### Game Finished Page
 
 ![end of quiz results page](documentation/images/end-page.png)
 
 When the user finishes the game, a results page displays with
-- a congratulatory message
+- a short message - one of three, depending on what the score was
 - the number of correct answers
 - a button to play again, which reloads the page to start again
 
@@ -234,7 +244,7 @@ The background image was reduced in size after initial Lighthouse testing, which
 
 ### Switch game mode
 
-Currently, the game mode buttons are displayed above the quiz while the game is being run but they do not start a new game when clicked on. This is a feature that should be added, or have the buttons removed.
+The plan was to have the game mode buttons displayed above the quiz throughout the game, and have the user be able to click on them and switch to a different quiz. They were removed as the code to start a new game wasn't working, but this would be a good feature to reimplement and fix in future.
 
 ## Testing
 
