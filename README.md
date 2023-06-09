@@ -271,7 +271,7 @@ Currently, the game mode buttons are displayed above the quiz while the game is 
 
 ### Personal Use
 
-The developer tested the website for quiz functionality and design layout on Chrome on a laptop and on a mobile phone, as well as approximating other device sizes using Chrome Devtools.
+The developer tested the website for quiz functionality and design layout on Chrome, Firefox and Safari, and on a laptop and a mobile phone, as well as approximating other device sizes using Chrome Devtools.
 
 Friends and family tested the website to check quiz functionality and intuitive use.
 
