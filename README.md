@@ -185,7 +185,28 @@ Allow user to control the quiz with the keyboard by pressing numbers for answer 
 - [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 - [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 
-## Major Coding and Design Challenges
+## Major Coding Challenges
+
+### Generation of answers
+
+Brackets was used to develop a function to generate a list of numbers that wouldn't repeat, and also add three other non-repeating answer options to each question in order to create the question options. These generated numbers between 0 and 500 would correspond to a song object in the data file and allow content to be pulled to create a question.
+
+Some of the categories have very similar structures (e.g. artist name and album name), so creating these new question types was straightforward. However, some of the categories, such as rank bracket and fastest song, required extra steps or other approaches to generate and display answers. 
+- For the rank bracket, the correct answer rank needed to be pulled but the answer options displayed as rank brackets, and four different brackets needed to be randomly generated.
+- For the fastest song question, instead of asking about the property of one song, the four options needed to be compared to each other to determine the greatest of one of their properties.
+- For the song length question, the song duration data needed to be converted from ms to a readable format of e.g. "4 mins 20 s"
+
+### Checking correct answers
+
+Checking whether the user selected the correct answer required for the correct answer to first be determined, a different process for several of the question types, and then to pull the HTML option element that corresponded to the correct answer.
+
+While this was initially handled by one function, as question categories got added that determined the correct answer in different ways, a seperate function was introduced to determine the correct answer separately from the document element checking function.
+
+### Storing which option selected
+
+While less significant than the previous two, determining how to store which option the user selected either of the game modes or answer options, instead of immediately reacting to the click event on the element (thus allowing more user control over the quiz flow) proved a challenge initially.
+
+The approach taken in this project was to add a "data-chosen" attribute to each option and run a function to set it to "true" when selected and reset the other options to "false", thus allowing the value to be read at a later point when needed.
 
 ## Bug Fixes
 
