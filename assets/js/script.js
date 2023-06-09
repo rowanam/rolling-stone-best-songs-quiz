@@ -370,6 +370,10 @@ function runGame(gameMode) {
             // make correct answer div visible
             correctAnswerWrapper.style.display = "flex";
 
+            if (questionType === 3 || questionType === 5) {
+                correctAnswerDisplay.style.display = "initial";
+            }
+
             // hide submit answer button and display next question button
             submitAnswerButton.style.display = "none";
             nextQuestionButton.style.display = "initial";
