@@ -168,6 +168,11 @@ Allow user to control the quiz with the keyboard by pressing numbers for answer 
 
 ## Technologies Used
 
+- [HTML5](https://developer.mozilla.org/en-US/docs/Glossary/HTML5)
+- [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS)
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+
 ## Major Coding and Design Challenges
 
 ## Bug Fixes
