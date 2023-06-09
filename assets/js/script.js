@@ -835,11 +835,21 @@ function finishGame(correctCount) {
     let totalCorrect = document.getElementById("total-correct");
     totalCorrect.innerHTML = correctCount;
 
+    // display different message based on score
+    let endMessage = document.getElementById("end-message");
+    if (correctCount >= 10) {
+        endMessage.innerHTML = "Superb!";
+    } else if (correctCount > 5) {
+        endMessage.innerHTML = "Rad!";
+    } else {
+        endMessage.innerHTML = "Better luck next time...";
+    }
+
     // display result div
     let resultWrapper = document.getElementById("result-wrapper");
     resultWrapper.style.display = "flex";
 
-    // center the result div while keeping game mode buttons at the top
+    // center and position the result div
     let gameWrapper = document.getElementById("game-wrapper");
     gameWrapper.style.display = "flex";
     gameWrapper.style.justifyContent = "center";
